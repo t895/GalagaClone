@@ -1,0 +1,34 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Bullet : MonoBehaviour
+{
+    public float speed = 20f;
+    public float damage = 10f;
+    public GameObject explosionEffect;
+    private Rigidbody2D body;
+    private bool hasCollided = false;
+
+    void Start()
+    {
+        body = GetComponent<Rigidbody2D>();
+        transform.parent = null;
+        body.velocity = transform.right * speed;
+        Destroy(gameObject, 2f);
+    }
+
+    void OnTriggerEnter2D(Collider2D _object)
+    {
+        if(!hasCollided)
+        {
+            GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+            Destroy(explosion, 2f);
+            if(_object.GetComponent<Enemy>() != null)
+                _object.GetComponent<Enemy>().TakeDamage(damage);
+            //Debug.Log(_object.name);
+            hasCollided = true;
+            Destroy(gameObject);
+        }
+    }
+}
