@@ -20,14 +20,13 @@ public class EnemyBullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D _object)
     {
-        if(!hasCollided)
+        PlayerManager _player = _object.GetComponent<PlayerManager>();
+        if(!hasCollided && _player.canTakeDamage)
         {
             GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
             Destroy(explosion, 2f);
-            PlayerManager _player = _object.GetComponent<PlayerManager>();
             if(_player != null)
                 _player.TakeDamage(damage);
-            //Debug.Log(_object.name);
             hasCollided = true;
             Destroy(gameObject);
         }

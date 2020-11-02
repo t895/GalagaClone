@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
     public GameObject bullet;
     public Transform shotOrigin;
     public float fireRate = 1f;
-    public float nextFire = 0f;
+    private float nextFire = 0f;
     private PlayerManager player;
 
     void Start()

@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     public SpriteRenderer playerSprite;
     public float health;
     public bool isAlive = true;
+    public bool canTakeDamage = true;
     private float maxHealth = 100f;
 
     void Start()
@@ -17,9 +18,12 @@ public class PlayerManager : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
-        health -= _damage;
-        if(health <= 0 && isAlive)
-            Die();
+        if(canTakeDamage)
+        {
+            health -= _damage;
+            if(health <= 0 && isAlive)
+                Die();
+        }
     }
 
     private void Die()
