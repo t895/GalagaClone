@@ -9,23 +9,26 @@ public class Weapon : MonoBehaviour
     public float fireRate = 1f;
     private float nextFire = 0f;
     private PlayerManager player;
+    private PlayerController controller;
 
     void Start()
     {
         player = GetComponent<PlayerManager>();
+        controller = GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        if(Input.GetButton("Fire1") && player.isAlive && Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
+        if(controller.shootInput == 1)
             Shoot();
-        }
     }
 
-    void Shoot()
+    public void Shoot()
     {
-        GameObject liveBullet = Instantiate(bullet, shotOrigin);
+        if(player.isAlive && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            GameObject liveBullet = Instantiate(bullet, shotOrigin);
+        }
     }
 }

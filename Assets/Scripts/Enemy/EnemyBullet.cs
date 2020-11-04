@@ -21,14 +21,25 @@ public class EnemyBullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D _object)
     {
         PlayerManager _player = _object.GetComponent<PlayerManager>();
-        if(!hasCollided && _player.canTakeDamage)
+
+        if(_player != null)
         {
-            GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-            Destroy(explosion, 2f);
-            if(_player != null)
+            if(_player.canTakeDamage && !hasCollided)
+            {
+                Explode();
                 _player.TakeDamage(damage);
-            hasCollided = true;
-            Destroy(gameObject);
+            }
         }
+
+        if(_player == null && !hasCollided)
+            Explode();
+    }
+
+    private void Explode()
+    {
+        GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+        Destroy(explosion, 2f);
+        hasCollided = true;
+        Destroy(gameObject);
     }
 }

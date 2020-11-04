@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject deathExplosion;
     public SpriteRenderer playerSprite;
     public float health;
+    public int score = 0;
     public bool isAlive = true;
     public bool canTakeDamage = true;
     private float maxHealth = 100f;
