@@ -11,10 +11,14 @@ public class PlayerManager : MonoBehaviour
     public bool isAlive = true;
     public bool canTakeDamage = true;
     private float maxHealth = 100f;
+    private CircleCollider2D hitbox;
+    private Light highlight;
 
     void Start()
     {
         health = maxHealth;
+        hitbox = GetComponent<CircleCollider2D>();
+        highlight = GetComponent<Light>();
     }
 
     public void TakeDamage(float _damage)
@@ -33,5 +37,7 @@ public class PlayerManager : MonoBehaviour
         GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
         Destroy(explosion, 2f);
         playerSprite.enabled = false;
+        hitbox.enabled = false;
+        highlight.enabled = false;
     }
 }

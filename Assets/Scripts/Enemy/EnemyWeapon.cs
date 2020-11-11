@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemyWeapon : MonoBehaviour
 {
-    public Transform shotPosition;
-    public GameObject enemyBullet;
+    public float timeToNextShot;
+    public float damage;
+    public float speed;
     public List<GameObject> bulletTypes;
+    public List<Transform> shotSources;
 
     void Start()
     {
@@ -15,17 +17,27 @@ public class EnemyWeapon : MonoBehaviour
 
     IEnumerator ShootLoop()
     {
-        for(int i = 0; i < bulletTypes.Count; i++) 
+        int _typeIndex = 0;
+        int _typePosition = 0;
+        while(true)
         {
-            Shoot(i);
-            yield return new WaitForSeconds(1f);
-            if(i >= bulletTypes.Count - 1)
-                i = -1;
+            Shoot(_typeIndex, _typePosition, damage, speed);
+
+            _typeIndex++;
+            _typePosition++;
+
+            if(_typeIndex >= bulletTypes.Count)
+                _typeIndex = 0;
+            if(_typePosition >= shotSources.Count)
+                _typePosition = 0;
+
+            yield return new WaitForSeconds(timeToNextShot);
         }
     }
 
-    private void Shoot(int _index)
+    private void Shoot(int _typeIndex, int _positionIndex, float _damage, float _speed)
     {
-        GameObject bullet = Instantiate(bulletTypes[_index], shotPosition);
+        GameObject bullet = Instantiate(bulletTypes[_typeIndex], shotSources[_positionIndex]);
+        bullet.GetComponent<EnemyBullet>().Initialize(_damage, _speed);
     }
 }

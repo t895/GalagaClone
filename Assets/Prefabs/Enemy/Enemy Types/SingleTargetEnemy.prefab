@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4491835280294962542}
   - component: {fileID: 5472693002058425165}
   m_Layer: 11
-  m_Name: Enemy
+  m_Name: SingleTargetEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,12 +114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6170ed01d8125a0409fd0332c8f07a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPosition: {fileID: 682207554543372814}
-  enemyBullet: {fileID: 8612078428502151096, guid: d2d2d54eebc1c03449f884d4384d38ec,
-    type: 3}
+  timeToNextShot: 1
   bulletTypes:
   - {fileID: 8612078428502151096, guid: d2d2d54eebc1c03449f884d4384d38ec, type: 3}
   - {fileID: 8612078428502151096, guid: 9bd6086b5805a2949959cca2151ebd21, type: 3}
+  shotSources:
+  - {fileID: 682207554543372814}
 --- !u!114 &4491835280294962542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,8 +133,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  lookSpeed: 1
   turnSpeed: 1
-  target: {fileID: 0}
+  targets:
+  - {fileID: 0}
+  movement: 0
 --- !u!61 &5472693002058425165
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -148,11 +151,11 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.025, y: -0.05}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.95}
+    oldSize: {x: 0.75, y: 0.8}
     newSize: {x: 2, y: 1.9}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

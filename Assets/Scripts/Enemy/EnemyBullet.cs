@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    public float speed = 2f;
-    public float damage = 10f;
+    public float autoExplodeTime;
     public GameObject explosionEffect;
     private Rigidbody2D body;
     private bool hasCollided = false;
+    private float damage;
+    private float speed;
+
+    public void Initialize(float _damage, float _speed)
+    {
+        damage = _damage;
+        speed = _speed;
+    }
 
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         transform.parent = null;
         body.velocity = transform.up * speed;
-        Destroy(gameObject, 15f);
+        StartCoroutine(GC());
     }
 
     void OnTriggerEnter2D(Collider2D _object)
@@ -41,5 +48,11 @@ public class EnemyBullet : MonoBehaviour
         Destroy(explosion, 2f);
         hasCollided = true;
         Destroy(gameObject);
+    }
+
+    IEnumerator GC()
+    {
+        yield return new WaitForSeconds(autoExplodeTime);
+        Explode();
     }
 }

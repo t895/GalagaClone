@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum movementType { target, follow };
+public enum movementType { singleTarget, multipleTargets, multipleTargetLoop, follow };
+
+public enum turnType { look, spin };
 
 public class EnemyMovement : MonoBehaviour
 {
     public float speed;
+    public float lookSpeed;
     public float turnSpeed;
-    public GameObject target;
+    public List<GameObject> targets;
     private GameObject player;
     public movementType movement;
+    public turnType turn;
+    private int currentTarget = 0;
 
     void Start()
     {
@@ -19,22 +24,53 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        if(movement == movementType.target) 
-            Target();
-        else if (movement == movementType.follow)
+        
+        if(movement == movementType.singleTarget) 
+            SingleTarget();
+        else if(movement == movementType.multipleTargets)
+            MultipleTargets();
+        else if(movement == movementType.multipleTargetLoop)
+            MultipleTargetLoop();
+        else if(movement == movementType.follow)
             Follow();
-
-        Look();
+        
+        if(turn == turnType.look)
+            Look();
+        else if(turn == turnType.spin)
+            Spin();
     }
 
     void Look()
     {
-        transform.up = Vector2.Lerp(transform.up, (player.transform.position - transform.position), turnSpeed * Time.deltaTime);
+        transform.up = Vector2.Lerp(transform.up, (player.transform.position - transform.position), lookSpeed * Time.deltaTime);
     }
 
-    void Target()
+    void Spin()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+        transform.Rotate(Vector3.forward * turnSpeed * Time.deltaTime);
+    }
+
+    void SingleTarget()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, targets[0].transform.position, speed * Time.deltaTime);
+    }
+
+    void MultipleTargets()
+    {
+        if(currentTarget >= targets.Count)
+            return;
+        
+        if(transform.position != targets[currentTarget].transform.position)
+            transform.position = Vector2.MoveTowards(transform.position, targets[currentTarget].transform.position, speed * Time.deltaTime);
+        else
+            currentTarget++;
+    }
+
+    void MultipleTargetLoop()
+    {
+        MultipleTargets();
+        if(currentTarget >= targets.Count)
+            currentTarget = 0;
     }
 
     void Follow()

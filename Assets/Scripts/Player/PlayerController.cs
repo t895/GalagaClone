@@ -1,12 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerInput input;
-
     public float speed;
     public float dodgeSpeed;
     public float startDodgeTime = 1f;
@@ -24,25 +21,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveVelocity;
     private PlayerManager player;
     private Weapon weapon;
-    private CircleCollider2D hitbox;
+    private Vector2 moveInput;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GetComponent<PlayerManager>();
         weapon = GetComponent<Weapon>();
-        hitbox = GetComponent<CircleCollider2D>();
     }
 
     void Update()
     {
-        shootInput = input.controls.Gameplay.Shoot.ReadValue<float>();
-
-        Move();
-        
-        //Move();
-
-        /*if(player.isAlive) 
+        if(player.isAlive) 
         {
             if((moveInput.magnitude > 0 && Input.GetKeyDown(KeyCode.Space)) || Time.time < dodgeTime) 
             {
@@ -59,14 +49,19 @@ public class PlayerController : MonoBehaviour
 
             if(Time.time > dodgeTime)
                 Move();
+
+            if(Time.time > dodgeTime && Input.GetKeyDown(KeyCode.Mouse1))
+                weapon.Melee();
         }
         else
-            rb.velocity = Vector2.zero;*/
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     private void Move()
     {
-        Vector2 moveInput = new Vector2(input.moveDireciton.x, input.moveDireciton.y);
+        moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput * speed;
         rb.velocity = moveVelocity * Time.deltaTime;
     }

@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 3119967518723326976}
   - component: {fileID: 5233595214263946715}
   - component: {fileID: 5233595214263946714}
-  - component: {fileID: 86590756784514508}
   - component: {fileID: 5233595214263946709}
   - component: {fileID: 7526340145008412222}
   m_Layer: 10
@@ -128,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathExplosion: {fileID: 4273821731572744069, guid: 3098c6f140ef9ca4792bd0d66efc18aa,
     type: 3}
-  playerSprite: {fileID: 0}
+  playerSprite: {fileID: 5233595214279674584}
   health: 0
   score: 0
   isAlive: 1
@@ -145,15 +144,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65bfa4467cbaa24a9f2d6af065ffeb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 86590756784514508}
-  speed: 10
-  dodgeSpeed: 0
-  startDodgeTime: 1
-  nextDodgeTime: 1
-  dodgeEffect: {fileID: 0}
+  speed: 150
+  dodgeSpeed: 900
+  startDodgeTime: 0.2
+  nextDodgeTime: 0.3
+  dodgeEffect: {fileID: 2154143134636568415, guid: 60deafddd3ff95d468a7a11f2b7b1866,
+    type: 3}
   cameraShake: {fileID: 0}
-  shakeDuration: 0
-  shakeMagnitude: 0
+  shakeDuration: 0.1
+  shakeMagnitude: 0.2
   shootInput: 0
 --- !u!114 &5233595214263946714
 MonoBehaviour:
@@ -169,19 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 8612078428502151096, guid: c3e6c24475be6a647837f8c21ca0f26a, type: 3}
   shotOrigin: {fileID: 5233595212918394661}
-  fireRate: 1
---- !u!114 &86590756784514508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5233595214263946713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20d180b24965cf643a4b98bfcb1ed047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  fireRate: 0.1
 --- !u!50 &5233595214263946709
 Rigidbody2D:
   serializedVersion: 4
@@ -201,7 +188,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &7526340145008412222
 CircleCollider2D:

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float health;
-    public float amplitude;
     public GameObject deathExplosion;
     private float maxHealth = 100;
 
