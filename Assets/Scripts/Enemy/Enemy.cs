@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public float maxHealth = 100;
     public float health;
+    public GameObject parent;
     public GameObject deathExplosion;
-    private float maxHealth = 100;
 
     void Start()
     {
@@ -24,6 +25,6 @@ public class Enemy : MonoBehaviour
     {
         GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
         Destroy(explosion, 2f);
-        Destroy(gameObject);
+        Destroy(parent);
     }
 }

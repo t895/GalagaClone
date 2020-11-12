@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float nextDodgeTime = 1f;
     public GameObject dodgeEffect;
     public CameraShake cameraShake;
+    public Melee melee;
     public float shakeDuration;
     public float shakeMagnitude;
     public float shootInput;
@@ -20,14 +21,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveVelocity;
     private PlayerManager player;
-    private Weapon weapon;
     private Vector2 moveInput;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GetComponent<PlayerManager>();
-        weapon = GetComponent<Weapon>();
     }
 
     void Update()
@@ -47,11 +46,14 @@ public class PlayerController : MonoBehaviour
                 player.canTakeDamage = true;
             }
 
+            if(Time.time > dodgeTime && Time.time > melee.nextMelee && Input.GetKeyDown(KeyCode.Mouse1)) 
+            {
+                StartCoroutine(cameraShake.Shake(shakeDuration, shakeMagnitude));
+                melee.Attack();
+            }
+
             if(Time.time > dodgeTime)
                 Move();
-
-            if(Time.time > dodgeTime && Input.GetKeyDown(KeyCode.Mouse1))
-                weapon.Melee();
         }
         else
         {

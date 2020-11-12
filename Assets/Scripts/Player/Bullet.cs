@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         if(!hasCollided)
         {
             GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-            Destroy(explosion, 2f);
+            Destroy(explosion, 1f);
             if(_object.GetComponent<Enemy>() != null)
                 _object.GetComponent<Enemy>().TakeDamage(damage);
             //Debug.Log(_object.name);

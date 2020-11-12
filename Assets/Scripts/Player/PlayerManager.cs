@@ -6,19 +6,29 @@ public class PlayerManager : MonoBehaviour
 {
     public GameObject deathExplosion;
     public SpriteRenderer playerSprite;
+    public HealthBar healthBar;
+    public Light highlight;
+    private float maxHealth = 100f;
     public float health;
     public int score = 0;
     public bool isAlive = true;
     public bool canTakeDamage = true;
-    private float maxHealth = 100f;
     private CircleCollider2D hitbox;
-    private Light highlight;
+    private PlayerController controller;
+    private float pastHealth = 100;
 
     void Start()
     {
         health = maxHealth;
         hitbox = GetComponent<CircleCollider2D>();
-        highlight = GetComponent<Light>();
+        controller = GetComponent<PlayerController>();
+    }
+
+    void Update()
+    {
+        if(health != pastHealth)
+            healthBar.SetHealth(health);
+        pastHealth = health;
     }
 
     public void TakeDamage(float _damage)
@@ -26,6 +36,7 @@ public class PlayerManager : MonoBehaviour
         if(canTakeDamage)
         {
             health -= _damage;
+            StartCoroutine(controller.cameraShake.Shake(controller.shakeDuration, controller.shakeMagnitude));
             if(health <= 0 && isAlive)
                 Die();
         }
