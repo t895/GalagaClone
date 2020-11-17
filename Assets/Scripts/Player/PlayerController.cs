@@ -9,11 +9,12 @@ public class PlayerController : MonoBehaviour
     public float startDodgeTime = 1f;
     public float nextDodgeTime = 1f;
     public GameObject dodgeEffect;
+    public ParticleSystem rechargeEffect;
     public CameraShake cameraShake;
     public Melee melee;
+    public Camera mainCamera;
     public float shakeDuration;
     public float shakeMagnitude;
-    public float shootInput;
 
     private float dodgeTime = 0f;
     private float dodgeWaitTime = 0f;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveVelocity;
     private PlayerManager player;
     private Vector2 moveInput;
+    private bool charged = false;
 
     void Start()
     {
@@ -46,7 +48,7 @@ public class PlayerController : MonoBehaviour
                 player.canTakeDamage = true;
             }
 
-            if(Time.time > dodgeTime && Time.time > melee.nextMelee && Input.GetKeyDown(KeyCode.Mouse1)) 
+            if(Time.time > dodgeTime && melee.meleePower == 100f && Input.GetKeyDown(KeyCode.Mouse1)) 
             {
                 StartCoroutine(cameraShake.Shake(shakeDuration, shakeMagnitude));
                 melee.Attack();
@@ -54,6 +56,13 @@ public class PlayerController : MonoBehaviour
 
             if(Time.time > dodgeTime)
                 Move();
+
+            if(Time.time > dodgeTime && !charged)
+            {
+                rechargeEffect.Play();
+                charged = true;
+            }
+
         }
         else
         {
@@ -65,7 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput * speed;
-        rb.velocity = moveVelocity * Time.deltaTime;
+        rb.velocity = SpeedRelativeToCamera(moveVelocity);
     }
 
     private void Dodge(Vector2 _moveInput)
@@ -76,10 +85,15 @@ public class PlayerController : MonoBehaviour
             dodgeWaitTime = dodgeTime + nextDodgeTime;
             lastMove = _moveInput;
             GameObject effect = Instantiate(dodgeEffect, transform.position, transform.rotation);
-            Destroy(effect, 2f);
             StartCoroutine(cameraShake.Shake(shakeDuration, shakeMagnitude));
+            charged = false;
         }
 
-        rb.velocity = (lastMove * dodgeSpeed) * Time.deltaTime;
+        rb.velocity = SpeedRelativeToCamera(lastMove * dodgeSpeed);
+    }
+
+    private Vector2 SpeedRelativeToCamera(Vector2 _speed)
+    {
+        return _speed * mainCamera.orthographicSize * Time.fixedDeltaTime;
     }
 }

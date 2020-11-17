@@ -45,12 +45,11 @@ public class EnemyBullet : MonoBehaviour
     private void Explode()
     {
         GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-        Destroy(explosion, 2f);
         hasCollided = true;
         Destroy(gameObject);
     }
 
-    IEnumerator GC()
+    private IEnumerator GC()
     {
         yield return new WaitForSeconds(autoExplodeTime);
         Explode();

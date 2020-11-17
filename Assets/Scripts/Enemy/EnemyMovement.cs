@@ -11,11 +11,12 @@ public class EnemyMovement : MonoBehaviour
     public float speed;
     public float lookSpeed;
     public float turnSpeed;
-    public List<GameObject> targets;
-    private GameObject player;
     public movementType movement;
     public turnType turn;
+    private List<Transform> targets;
+    private GameObject player;
     private int currentTarget = 0;
+    private bool isReady = false;
 
     void Start()
     {
@@ -24,20 +25,28 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        
-        if(movement == movementType.singleTarget) 
-            SingleTarget();
-        else if(movement == movementType.multipleTargets)
-            MultipleTargets();
-        else if(movement == movementType.multipleTargetLoop)
-            MultipleTargetLoop();
-        else if(movement == movementType.follow)
-            Follow();
-        
-        if(turn == turnType.look)
-            Look();
-        else if(turn == turnType.spin)
-            Spin();
+        if(isReady)
+        {    
+            if(movement == movementType.singleTarget) 
+                SingleTarget();
+            else if(movement == movementType.multipleTargets)
+                MultipleTargets();
+            else if(movement == movementType.multipleTargetLoop)
+                MultipleTargetLoop();
+            else if(movement == movementType.follow)
+                Follow();
+            
+            if(turn == turnType.look)
+                Look();
+            else if(turn == turnType.spin)
+                Spin();
+        }
+    }
+
+    public void SetTargets(List<Transform> _positions)
+    {
+        targets = _positions;
+        isReady = true;
     }
 
     void Look()
@@ -52,7 +61,7 @@ public class EnemyMovement : MonoBehaviour
 
     void SingleTarget()
     {
-        transform.position = Vector2.MoveTowards(transform.position, targets[0].transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targets[0].position, speed * Time.deltaTime);
     }
 
     void MultipleTargets()
@@ -60,8 +69,8 @@ public class EnemyMovement : MonoBehaviour
         if(currentTarget >= targets.Count)
             return;
         
-        if(transform.position != targets[currentTarget].transform.position)
-            transform.position = Vector2.MoveTowards(transform.position, targets[currentTarget].transform.position, speed * Time.deltaTime);
+        if(transform.position != targets[currentTarget].position)
+            transform.position = Vector2.MoveTowards(transform.position, targets[currentTarget].position, speed * Time.deltaTime);
         else
             currentTarget++;
     }

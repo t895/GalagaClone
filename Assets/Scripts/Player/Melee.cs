@@ -7,9 +7,11 @@ public class Melee : MonoBehaviour
     public PlayerManager player;
     public GameObject explosionEffect;
     public float damage;
-    public float meleeRate = 0f;
+    //public float meleeRate = 0f;
     public float hitboxTime;
-    public float nextMelee = 0f;
+    //public float nextMelee = 0f;
+    public float meleePower = 100f;
+    public float meleeRechargeRate = 5f;
     private ParticleSystem particles;
     private CircleCollider2D hitbox;
 
@@ -17,16 +19,23 @@ public class Melee : MonoBehaviour
     {
         particles = GetComponent<ParticleSystem>();
         hitbox = GetComponent<CircleCollider2D>();
+        meleeRechargeRate *= Time.deltaTime;
+    }
+
+    void Update()
+    {
+        if(meleePower < 100f)
+            meleePower += meleeRechargeRate;
+        else if(meleePower > 100f)
+            meleePower = 100f;
     }
 
     public void Attack()
     {
-        if(player.isAlive && Time.time > nextMelee)
-        {
-            nextMelee = Time.time + meleeRate;
-            particles.Play();
-            StartCoroutine(HitboxEnable());
-        }
+        //nextMelee = Time.time + meleeRate;
+        meleePower -= meleePower;
+        particles.Play();
+        StartCoroutine(HitboxEnable());
     }
 
     private IEnumerator HitboxEnable()

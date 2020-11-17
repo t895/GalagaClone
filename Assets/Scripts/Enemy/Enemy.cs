@@ -24,7 +24,6 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
-        Destroy(explosion, 2f);
         Destroy(parent);
     }
 }
