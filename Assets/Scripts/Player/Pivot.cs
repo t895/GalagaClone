@@ -6,13 +6,16 @@ public class Pivot : MonoBehaviour
 {
     public GameObject player;
 
-    void FixedUpdate()
+    void Update()
     {
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        difference.Normalize();
+        if(!GameState.paused)
+        {
+            Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            difference.Normalize();
 
-        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+            float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+            transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+        }
     }
 }

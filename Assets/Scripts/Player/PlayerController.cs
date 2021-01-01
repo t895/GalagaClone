@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Camera mainCamera;
     public float shakeDuration;
     public float shakeMagnitude;
+    public AudioClip dodgeClip;
 
     private float dodgeTime = 0f;
     private float dodgeWaitTime = 0f;
@@ -24,16 +25,18 @@ public class PlayerController : MonoBehaviour
     private PlayerManager player;
     private Vector2 moveInput;
     private bool charged = false;
+    private AudioSource audioPlayer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GetComponent<PlayerManager>();
+        audioPlayer = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        if(player.isAlive) 
+        if(player.isAlive && !GameState.paused) 
         {
             if((moveInput.magnitude > 0 && Input.GetKeyDown(KeyCode.Space)) || Time.time < dodgeTime) 
             {
@@ -81,6 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Time.time > dodgeWaitTime) 
         {
+            audioPlayer.PlayOneShot(dodgeClip);
             dodgeTime = Time.time + startDodgeTime;
             dodgeWaitTime = dodgeTime + nextDodgeTime;
             lastMove = _moveInput;

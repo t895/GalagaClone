@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public bool levelIsComplete = false;
     [SerializeField] private Wave[] waveArray = default;
     private int currentWave = 0;
 
@@ -15,7 +14,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        if(waveArray.Length > currentWave && !levelIsComplete)
+        if(waveArray.Length > currentWave && GameState.currentState == GameState.LevelStatus.levelInProgress)
         {
             waveArray[currentWave].Check();
             Enemy[] enemies = FindObjectsOfType<Enemy>();
@@ -26,8 +25,11 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        if(waveArray.Length <= currentWave && !levelIsComplete)
-            levelIsComplete = true;
+        if(waveArray.Length <= currentWave && GameState.currentState == GameState.LevelStatus.levelInProgress)
+        {
+            GameState.currentState = GameState.LevelStatus.levelComplete;
+            Debug.Log("Level is complete");
+        }
     }
 
     void SpawnWave()

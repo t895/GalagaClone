@@ -13,9 +13,9 @@ public class EnemyMovement : MonoBehaviour
     public float turnSpeed;
     public movementType movement;
     public turnType turn;
-    private List<Transform> targets;
+    [SerializeField] private List<Transform> targets;
     private GameObject player;
-    private int currentTarget = 0;
+    [SerializeField] private int currentTarget = 0;
     private bool isReady = false;
 
     void Start()
