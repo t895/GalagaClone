@@ -8,8 +8,6 @@ public class Melee : MonoBehaviour
     public GameObject explosionEffect;
     public float damage;
     public float hitboxTime;
-    public float meleePower = 100f;
-    public float meleeRechargeRate = 5f;
     public AudioClip meleeClip;
     private ParticleSystem particles;
     private CircleCollider2D hitbox;
@@ -20,24 +18,12 @@ public class Melee : MonoBehaviour
         particles = GetComponent<ParticleSystem>();
         hitbox = GetComponent<CircleCollider2D>();
         audioPlayer = transform.parent.gameObject.GetComponent<AudioSource>();
-        meleeRechargeRate *= Time.deltaTime;
-    }
-
-    void Update()
-    {
-        if(!GameState.paused)
-        {
-            if(meleePower < 100f)
-                meleePower += meleeRechargeRate;
-            else if(meleePower > 100f)
-                meleePower = 100f;
-        }
     }
 
     public void Attack()
     {
         audioPlayer.PlayOneShot(meleeClip);
-        meleePower -= meleePower;
+        player.meleePower -= player.meleePower;
         particles.Play();
         StartCoroutine(HitboxEnable());
     }

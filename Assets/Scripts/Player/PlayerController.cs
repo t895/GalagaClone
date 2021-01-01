@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
                 player.canTakeDamage = true;
             }
 
-            if(Time.time > dodgeTime && melee.meleePower == 100f && Input.GetKeyDown(KeyCode.Mouse1)) 
+            if(Time.time > dodgeTime && player.meleePower == 100f && Input.GetKeyDown(KeyCode.Mouse1)) 
             {
                 StartCoroutine(cameraShake.Shake(shakeDuration, shakeMagnitude));
                 melee.Attack();

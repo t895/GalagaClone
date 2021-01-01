@@ -6,20 +6,20 @@ using UnityEngine.UI;
 public class MeleeBar : MonoBehaviour
 {
     private Slider slider;
-    private Melee melee;
+    private PlayerManager player;
     private float pastMelee;
 
     void Start()
     {
         slider = GetComponent<Slider>();
-        melee = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Melee>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
     }
 
     void Update()
     {
-        if(melee.meleePower != pastMelee)
-            SetMelee(melee.meleePower);
-        pastMelee = melee.meleePower;
+        if(player.meleePower != pastMelee)
+            SetMelee(player.meleePower);
+        pastMelee = player.meleePower;
     }
 
     public void SetMelee(float _melee)
