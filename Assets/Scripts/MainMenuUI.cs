@@ -8,6 +8,8 @@ public class MainMenuUI : MonoBehaviour
     public GameObject mainMenuUI;
     public GameObject controlsUI;
 
+    public GameObject settingsUI;
+
     public void OpenControlsUI()
     {
         enableOne(controlsUI);
@@ -16,6 +18,16 @@ public class MainMenuUI : MonoBehaviour
     public void OpenMainMenuUI()
     {
         enableOne(mainMenuUI);
+    }
+
+    public void OpenSettingsUI()
+    {
+        enableOne(settingsUI);
+    }
+
+    public void ChangeQualityPreset(int _index)
+    {
+        QualitySettings.SetQualityLevel(_index, true);
     }
 
     public void StartGame()

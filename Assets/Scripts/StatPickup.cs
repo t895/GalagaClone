@@ -12,17 +12,20 @@ public class StatPickup : MonoBehaviour
     private AudioSource audioPlayer;
     private ParticleSystem pickupAnimation;
     private SpriteRenderer sprite;
+    private BoxCollider2D hitbox;
     
     void Start()
     {
         pickupAnimation = GetComponent<ParticleSystem>();
         sprite = GetComponent<SpriteRenderer>();
         audioPlayer = GetComponent<AudioSource>();
+        hitbox = GetComponent<BoxCollider2D>();
     }
 
     void OnTriggerEnter2D(Collider2D _collider)
     {
-        Take(_collider.GetComponent<PlayerManager>());
+        if(_collider.GetComponent<PlayerManager>() != null)
+            Take(_collider.GetComponent<PlayerManager>());
     }
 
     void Take(PlayerManager _player)
@@ -44,6 +47,7 @@ public class StatPickup : MonoBehaviour
         audioPlayer.PlayOneShot(pickupClip);
         pickupAnimation.Play();
         sprite.enabled = false;
+        hitbox.enabled = false;
         Destroy(gameObject, 2f);
     }
 }
