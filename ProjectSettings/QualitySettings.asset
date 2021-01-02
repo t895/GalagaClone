@@ -44,7 +44,7 @@ QualitySettings:
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Low
-    pixelLightCount: 5
+    pixelLightCount: 0
     shadows: 0
     shadowResolution: 0
     shadowProjection: 1
@@ -80,7 +80,7 @@ QualitySettings:
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Medium
-    pixelLightCount: 10
+    pixelLightCount: 6
     shadows: 0
     shadowResolution: 0
     shadowProjection: 1
@@ -116,7 +116,7 @@ QualitySettings:
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: High
-    pixelLightCount: 16
+    pixelLightCount: 12
     shadows: 0
     shadowResolution: 1
     shadowProjection: 1
@@ -152,7 +152,7 @@ QualitySettings:
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Very High
-    pixelLightCount: 20
+    pixelLightCount: 18
     shadows: 0
     shadowResolution: 2
     shadowProjection: 1
