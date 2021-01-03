@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public AudioClip explosionClip;
     public AudioClip hitClip;
     private AudioSource audioPlayer;
+    private bool isDead = false;
 
     void Start()
     {
@@ -22,14 +23,18 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
-        audioPlayer.PlayOneShot(hitClip);
-        health -= _damage;
-        if(health <= 0)
-            Die();
+        if(!isDead) 
+        {
+            audioPlayer.PlayOneShot(hitClip);
+            health -= _damage;
+            if(health <= 0)
+                Die();
+        }
     }
 
     void Die()
     {
+        isDead = true;
         audioPlayer.PlayOneShot(explosionClip);
         GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
         if(randomDropsEnabled)
