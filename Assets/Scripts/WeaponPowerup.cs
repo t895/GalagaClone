@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PowerupType { none, bigBullets, multiShot };
+public enum PowerupType { none, bigBullets, tripleShot, octaShot };
 
 public class WeaponPowerup : MonoBehaviour
 {
     [SerializeField] private PowerupType powerupType;
+    [SerializeField] private int powerupDuration;
     public AudioClip pickupClip;
     private AudioSource audioPlayer;
     private ParticleSystem pickupAnimation;
@@ -29,7 +30,7 @@ public class WeaponPowerup : MonoBehaviour
 
     void Take(Gun _gun)
     {
-        _gun.powerupType = powerupType;
+        _gun.PowerupTaken(powerupType, powerupDuration);
         PickedUp();
     }
 

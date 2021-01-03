@@ -15,6 +15,8 @@ public class Gun : MonoBehaviour
     private PlayerManager player;
     private PlayerController controller;
     private AudioSource audioPlayer;
+    private int currentPowerupDuration;
+    private bool powerupStarted = false;
 
     void Start()
     {
@@ -31,9 +33,27 @@ public class Gun : MonoBehaviour
                 Shoot();
             else if (powerupType == PowerupType.bigBullets)
                 BigShot();
-            else if (powerupType == PowerupType.multiShot)
-                MultiShot();
+            else if (powerupType == PowerupType.tripleShot)
+                TripleShot();
+            else if (powerupType == PowerupType.octaShot)
+                OctaShot();
         }
+    }
+
+    public void PowerupTaken(PowerupType _powerupType, int _powerupDuration)
+    {
+        StopAllCoroutines();
+        powerupStarted = false;
+        powerupType = _powerupType;
+        currentPowerupDuration = _powerupDuration;
+    }
+
+    private IEnumerator PowerupTimeout(float _time)
+    {
+        powerupStarted = true;
+        yield return new WaitForSeconds(_time);
+        powerupType = PowerupType.none;
+        powerupStarted = false;
     }
 
     private void Shoot()
@@ -51,8 +71,11 @@ public class Gun : MonoBehaviour
 
     }
 
-    private void MultiShot()
+    private void TripleShot()
     {
+        if(!powerupStarted)
+            StartCoroutine(PowerupTimeout(currentPowerupDuration));
+
         if(player.isAlive && Time.time > nextFire)
         {
             audioPlayer.PlayOneShot(shotSound);
@@ -64,4 +87,19 @@ public class Gun : MonoBehaviour
         }
     }
 
+    private void OctaShot()
+    {
+        if(!powerupStarted)
+            StartCoroutine(PowerupTimeout(currentPowerupDuration));
+
+        if(player.isAlive && Time.time > nextFire)
+        {
+            audioPlayer.PlayOneShot(shotSound);
+            nextFire = Time.time + fireRate;
+            for(int i = 0; i < octaShotOrigins.Count; i++) 
+            {
+                GameObject liveBullet = Instantiate(bullet, octaShotOrigins[i]);
+            }
+        }
+    }
 }
