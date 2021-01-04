@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     public float speed = 20f;
     public float damage = 10f;
     public GameObject explosionEffect;
+    
+    [SerializeField] private AudioClip shotSound;
     private Rigidbody2D body;
     private bool hasCollided = false;
 
@@ -16,6 +18,12 @@ public class Bullet : MonoBehaviour
         transform.parent = null;
         body.velocity = transform.right * speed;
         Destroy(gameObject, 2f);
+    }
+
+    public void Initialize(Gun _gun)
+    {
+        if(shotSound != null)
+            _gun.audioPlayer.PlayOneShot(shotSound);
     }
 
     void OnTriggerEnter2D(Collider2D _object)

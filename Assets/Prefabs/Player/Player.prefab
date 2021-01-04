@@ -5253,9 +5253,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8612078428502151096, guid: c3e6c24475be6a647837f8c21ca0f26a, type: 3}
-  shotSound: {fileID: 8300000, guid: 637d1721c1560424396bbe337cb1090b, type: 3}
   fireRate: 0.1
   powerupType: 0
+  audioPlayer: {fileID: 0}
   baseShotOrigins:
   - {fileID: 5233595212918394661}
   - {fileID: 7064835894728283785}

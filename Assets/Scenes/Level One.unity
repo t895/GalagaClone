@@ -5587,11 +5587,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
-        type: 3}
-      propertyPath: octaShotOrigins.Array.size
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 5233595214263946715, guid: dbff8490033aa5f448ea82a95014dccf,
         type: 3}
       propertyPath: mainCamera
