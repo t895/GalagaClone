@@ -5252,9 +5252,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f982f0b43af5546ad5c703ea05172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 8612078428502151096, guid: c3e6c24475be6a647837f8c21ca0f26a, type: 3}
+  defaultBullet: {fileID: 8612078428502151096, guid: c3e6c24475be6a647837f8c21ca0f26a,
+    type: 3}
   fireRate: 0.1
   powerupType: 0
+  defaultShotSound: {fileID: 8300000, guid: 637d1721c1560424396bbe337cb1090b, type: 3}
+  powerupAudio:
+  - powerupType: 0
+    powerupAudio: {fileID: 8300000, guid: 637d1721c1560424396bbe337cb1090b, type: 3}
+  - powerupType: 1
+    powerupAudio: {fileID: 8300000, guid: 8675d035d1dd7b741bca01a47b85e473, type: 3}
+  - powerupType: 2
+    powerupAudio: {fileID: 0}
+  - powerupType: 3
+    powerupAudio: {fileID: 0}
   audioPlayer: {fileID: 0}
   baseShotOrigins:
   - {fileID: 5233595212918394661}

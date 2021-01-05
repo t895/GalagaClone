@@ -41,6 +41,7 @@ public class EnemyManager : MonoBehaviour
     [System.Serializable]
     private class Wave
     {
+        public PickupSpawner pickup;
         public List<EnemySpawner> enemies = default;
         public float timer = 0;
         public bool waitingToSpawn = true;
@@ -48,6 +49,8 @@ public class EnemyManager : MonoBehaviour
         
         public void Initialize()
         {
+            if(pickup != null)
+                pickup.Spawn();
             timeToSpawn = Time.time + timer;
         }
 

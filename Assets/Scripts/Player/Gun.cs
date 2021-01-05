@@ -8,8 +8,9 @@ public class Gun : MonoBehaviour
     public float fireRate = 1f;
     public PowerupType powerupType;
     [SerializeField] private AudioClip defaultShotSound;
+    [SerializeField] private AudioClip disablePowerupSound;
     [SerializeField] private List<PowerupAudio> powerupAudio;
-    [HideInInspector] public AudioSource audioPlayer;
+    private AudioSource audioPlayer;
     
     [SerializeField] private List<Transform> baseShotOrigins;
     [SerializeField] private List<Transform> octaShotOrigins;
@@ -32,24 +33,24 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.Mouse0) && !GameState.paused)
+        if(!GameState.paused && player.isAlive)
         {
-            if(customRate == 0)
+            if(Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire) 
             {
-                if(player.isAlive && Time.time > nextFire)
+                if(customRate == 0)
                 {
                     nextFire = Time.time + fireRate;
                     PickShot();
-                }  
-            }
-            else
-            {
-                if(player.isAlive && Time.time > nextFire)
+                }
+                else
                 {
                     nextFire = Time.time + customRate;
                     PickShot();
                 }
             }
+
+            if(Input.GetKeyDown(KeyCode.F) && powerupType != PowerupType.none)
+                DisablePowerup();
         }
     }
 
@@ -80,10 +81,7 @@ public class Gun : MonoBehaviour
     private IEnumerator PowerupTimeout(float _time)
     {
         yield return new WaitForSeconds(_time);
-        powerupType = PowerupType.none;
-        currentBullet = defaultBullet;
-        customRate = 0;
-        currentSound = defaultShotSound;
+        DisablePowerup();
     }
 
     public void PowerupTaken(PowerupType _powerupType, int _powerupDuration, GameObject _customBullet, float _customRate)
@@ -97,6 +95,15 @@ public class Gun : MonoBehaviour
             customRate = _customRate;
         if(FindAudio(_powerupType) != null)
             currentSound = FindAudio(_powerupType);
+    }
+
+    private void DisablePowerup()
+    {
+        powerupType = PowerupType.none;
+        currentBullet = defaultBullet;
+        customRate = 0;
+        currentSound = defaultShotSound;
+        audioPlayer.PlayOneShot(disablePowerupSound);
     }
 
     #region ShotTypes

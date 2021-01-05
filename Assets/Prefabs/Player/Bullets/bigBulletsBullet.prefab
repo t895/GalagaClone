@@ -122,6 +122,7 @@ MonoBehaviour:
   explosionEffect: {fileID: 4273821731572744069, guid: 13820ebb413e0fb47b9bb1476fb57fb4,
     type: 3}
   collisions: 5
+  canDestroyIndestructableBullets: 1
 --- !u!58 &5929558444875734764
 CircleCollider2D:
   m_ObjectHideFlags: 0

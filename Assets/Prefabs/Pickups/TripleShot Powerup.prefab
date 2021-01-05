@@ -99,7 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupType: 2
-  powerupDuration: 5
+  powerupDuration: 15
+  customBullet: {fileID: 0}
+  customRate: 0
   pickupClip: {fileID: 8300000, guid: 77d54ca3610b37b4e9483a1ff4b61cd9, type: 3}
 --- !u!61 &7975491213262635803
 BoxCollider2D:

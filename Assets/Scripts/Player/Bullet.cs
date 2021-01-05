@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float damage = 10f;
     public GameObject explosionEffect;
     [SerializeField] private int collisions = 1;
+    [SerializeField] private bool canDestroyIndestructableBullets = false;
     
     private Rigidbody2D body;
 
@@ -17,6 +18,8 @@ public class Bullet : MonoBehaviour
         transform.parent = null;
         body.velocity = transform.right * speed;
         Destroy(gameObject, 2f);
+        if(canDestroyIndestructableBullets)
+            Physics2D.IgnoreLayerCollision(8, 12, false);
     }
 
     void OnTriggerEnter2D(Collider2D _object)
