@@ -32,8 +32,8 @@ public class PowerupStatus : MonoBehaviour
     {
         for(int i = 0; i < powerups.Count; i++)
         {
-            if(powerups[i].GetPowerup() == _powerupType)
-                return powerups[i].GetSprite();
+            if(powerups[i].Powerup == _powerupType)
+                return powerups[i].Sprite;
         }
         return null;
     }
@@ -44,20 +44,13 @@ public class PowerupStatus : MonoBehaviour
         [SerializeField] private PowerupType powerupType;
         [SerializeField] private Sprite powerupSprite;
 
+        public PowerupType Powerup { get { return powerupType; } }
+        public Sprite Sprite { get { return powerupSprite; } }
+    
         public PowerupDefinition(PowerupType _powerupType, Sprite _powerupSprite)
         {
             powerupType = _powerupType;
             powerupSprite = _powerupSprite;
-        }
-
-        public PowerupType GetPowerup()
-        {
-            return powerupType;
-        }
-
-        public Sprite GetSprite()
-        {
-            return powerupSprite;
         }
     }
 }

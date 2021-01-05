@@ -584,11 +584,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5066316468821648448, guid: bf78b5490adccdf458136df261ec0cb9,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5066316468821648449, guid: bf78b5490adccdf458136df261ec0cb9,
+        type: 3}
+      propertyPath: customRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5066316468821648449, guid: bf78b5490adccdf458136df261ec0cb9,
         type: 3}
       propertyPath: powerupType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5066316468821648449, guid: bf78b5490adccdf458136df261ec0cb9,
+        type: 3}
+      propertyPath: customBullet
+      value: 
+      objectReference: {fileID: 6341607638929560228, guid: dc98bb36fbfd2b142a51fa5384692797,
+        type: 3}
     - target: {fileID: 5066316468821648451, guid: bf78b5490adccdf458136df261ec0cb9,
         type: 3}
       propertyPath: m_Name
@@ -3989,7 +4005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1489445845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5587,6 +5603,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: defaultBullet
+      value: 
+      objectReference: {fileID: 8612078428502151096, guid: c3e6c24475be6a647837f8c21ca0f26a,
+        type: 3}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: defaultShotSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 637d1721c1560424396bbe337cb1090b, type: 3}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: powerupAudio.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: powerupAudio.Array.data[1].powerupType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: powerupAudio.Array.data[2].powerupType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: powerupAudio.Array.data[3].powerupType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: powerupAudio.Array.data[0].powerupAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 637d1721c1560424396bbe337cb1090b, type: 3}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: powerupAudio.Array.data[1].powerupAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 8675d035d1dd7b741bca01a47b85e473, type: 3}
     - target: {fileID: 5233595214263946715, guid: dbff8490033aa5f448ea82a95014dccf,
         type: 3}
       propertyPath: mainCamera

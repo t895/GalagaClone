@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public GameObject bullet;
+    public GameObject defaultBullet;
     public float fireRate = 1f;
     public PowerupType powerupType;
+    [SerializeField] private AudioClip defaultShotSound;
+    [SerializeField] private List<PowerupAudio> powerupAudio;
     [HideInInspector] public AudioSource audioPlayer;
     
-    //[SerializeField] private AudioClip shotSound;
     [SerializeField] private List<Transform> baseShotOrigins;
     [SerializeField] private List<Transform> octaShotOrigins;
     private float nextFire = 0f;
     private PlayerManager player;
     private PlayerController controller;
     
-    private GameObject customBullet;
+    private GameObject currentBullet;
     private float customRate = 0;
+    private AudioClip currentSound;
 
     void Start()
     {
         player = GetComponent<PlayerManager>();
         controller = GetComponent<PlayerController>();
         audioPlayer = GetComponent<AudioSource>();
+        currentSound = defaultShotSound;
+        currentBullet = defaultBullet;
     }
 
     void Update()
@@ -49,7 +53,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    void PickShot()
+    private void PickShot()
     {
         if(powerupType == PowerupType.none)
             Shoot();
@@ -59,20 +63,27 @@ public class Gun : MonoBehaviour
             TripleShot();
         else if (powerupType == PowerupType.octaShot)
             OctaShot();
+
+        audioPlayer.PlayOneShot(currentSound);
     }
 
-    #region PowerupTaken
-    public void PowerupTaken(PowerupType _powerupType, int _powerupDuration)
+    private AudioClip FindAudio(PowerupType _powerupType)
     {
-        StopAllCoroutines();
-        PowerupTaken(_powerupType, _powerupDuration, null);
+        for(int i = 0; i < powerupAudio.Count; i++)
+        {
+            if(powerupAudio[i].Powerup == _powerupType)
+                return powerupAudio[i].Audio;
+        }
+        return defaultShotSound;
     }
 
-    public void PowerupTaken(PowerupType _powerupType, int _powerupDuration, GameObject _customBullet)
+    private IEnumerator PowerupTimeout(float _time)
     {
-        StopAllCoroutines();
-        PowerupTaken(_powerupType, _powerupDuration, _customBullet, 0);
-        
+        yield return new WaitForSeconds(_time);
+        powerupType = PowerupType.none;
+        currentBullet = defaultBullet;
+        customRate = 0;
+        currentSound = defaultShotSound;
     }
 
     public void PowerupTaken(PowerupType _powerupType, int _powerupDuration, GameObject _customBullet, float _customRate)
@@ -81,51 +92,54 @@ public class Gun : MonoBehaviour
         StartCoroutine(PowerupTimeout(_powerupDuration));
         powerupType = _powerupType;
         if(_customBullet != null)
-            customBullet = _customBullet;
+            currentBullet = _customBullet;
         if(_customRate != 0)
             customRate = _customRate;
-    }
-    #endregion
-
-    private IEnumerator PowerupTimeout(float _time)
-    {
-        yield return new WaitForSeconds(_time);
-        powerupType = PowerupType.none;
-        customBullet = null;
-        customRate = 0;
+        if(FindAudio(_powerupType) != null)
+            currentSound = FindAudio(_powerupType);
     }
 
+    #region ShotTypes
     private void Shoot()
     {
-        //audioPlayer.PlayOneShot(shotSound);
-        GameObject liveBullet = Instantiate(bullet, baseShotOrigins[0]);
-        liveBullet.GetComponent<Bullet>().Initialize(this);
+        GameObject liveBullet = Instantiate(currentBullet, baseShotOrigins[0]);
     }
 
     private void BigShot()
     {
-        //audioPlayer.PlayOneShot(shotSound);
-        GameObject liveBullet = Instantiate(customBullet, baseShotOrigins[0]);
-        liveBullet.GetComponent<Bullet>().Initialize(this);
+        GameObject liveBullet = Instantiate(currentBullet, baseShotOrigins[0]);
     }
 
     private void TripleShot()
     {
-        //audioPlayer.PlayOneShot(shotSound);
         for(int i = 0; i <= 2; i++) 
         {
-            GameObject liveBullet = Instantiate(bullet, baseShotOrigins[i]);
-            liveBullet.GetComponent<Bullet>().Initialize(this);
+            GameObject liveBullet = Instantiate(currentBullet, baseShotOrigins[i]);
         }
     }
 
     private void OctaShot()
     {
-        //audioPlayer.PlayOneShot(shotSound);
         for(int i = 0; i < octaShotOrigins.Count; i++) 
         {
-            GameObject liveBullet = Instantiate(bullet, octaShotOrigins[i]);
-            liveBullet.GetComponent<Bullet>().Initialize(this);
+            GameObject liveBullet = Instantiate(currentBullet, octaShotOrigins[i]);
+        }
+    }
+    #endregion
+
+    [System.Serializable]
+    private class PowerupAudio
+    {
+        [SerializeField] private PowerupType powerupType;
+        [SerializeField] private AudioClip powerupAudio;
+
+        public PowerupType Powerup { get { return powerupType; } }
+        public AudioClip Audio { get { return powerupAudio; } }
+
+        public PowerupAudio(PowerupType _powerupType, AudioClip _powerupAudio)
+        {
+            powerupType = _powerupType;
+            powerupAudio = _powerupAudio;
         }
     }
 }

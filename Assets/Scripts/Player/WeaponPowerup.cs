@@ -9,6 +9,7 @@ public class WeaponPowerup : MonoBehaviour
     [SerializeField] private PowerupType powerupType;
     [SerializeField] private int powerupDuration;
     [SerializeField] private GameObject customBullet;
+    [SerializeField] private float customRate;
     public AudioClip pickupClip;
     private AudioSource audioPlayer;
     private ParticleSystem pickupAnimation;
@@ -31,16 +32,8 @@ public class WeaponPowerup : MonoBehaviour
 
     void Take(Gun _gun)
     {
-        if(customBullet != null)
-        {
-            _gun.PowerupTaken(powerupType, powerupDuration, customBullet);
-            PickedUp();
-        }
-        else
-        {
-            _gun.PowerupTaken(powerupType, powerupDuration);
-            PickedUp();
-        }
+        _gun.PowerupTaken(powerupType, powerupDuration, customBullet, customRate);
+        PickedUp();
     }
 
     void PickedUp()
