@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6341607638929560230}
   - component: {fileID: 6341607638929560231}
-  - component: {fileID: 3424377561257616258}
   - component: {fileID: 5404224394251295750}
+  - component: {fileID: 3424377561257616258}
   - component: {fileID: 5929558444875734764}
   m_Layer: 8
   m_Name: bigBulletsBullet
@@ -84,6 +84,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5404224394251295750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341607638929560228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e158e20e0dbfc024c87049e8c29953a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  damage: 50
+  explosionEffect: {fileID: 4273821731572744069, guid: 13820ebb413e0fb47b9bb1476fb57fb4,
+    type: 3}
+  collisions: 5
+  canDestroyIndestructableBullets: 1
+  timeToDestroy: 2
 --- !u!50 &3424377561257616258
 Rigidbody2D:
   serializedVersion: 4
@@ -105,24 +124,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &5404224394251295750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6341607638929560228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e158e20e0dbfc024c87049e8c29953a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  damage: 50
-  explosionEffect: {fileID: 4273821731572744069, guid: 13820ebb413e0fb47b9bb1476fb57fb4,
-    type: 3}
-  collisions: 5
-  canDestroyIndestructableBullets: 1
 --- !u!58 &5929558444875734764
 CircleCollider2D:
   m_ObjectHideFlags: 0

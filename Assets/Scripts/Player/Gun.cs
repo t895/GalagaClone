@@ -89,10 +89,17 @@ public class Gun : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(PowerupTimeout(_powerupDuration));
         powerupType = _powerupType;
+
         if(_customBullet != null)
             currentBullet = _customBullet;
+        else
+            currentBullet = defaultBullet;
+
         if(_customRate != 0)
             customRate = _customRate;
+        else
+            customRate = 0;
+
         if(FindAudio(_powerupType) != null)
             currentSound = FindAudio(_powerupType);
     }
@@ -142,11 +149,5 @@ public class Gun : MonoBehaviour
 
         public PowerupType Powerup { get { return powerupType; } }
         public AudioClip Audio { get { return powerupAudio; } }
-
-        public PowerupAudio(PowerupType _powerupType, AudioClip _powerupAudio)
-        {
-            powerupType = _powerupType;
-            powerupAudio = _powerupAudio;
-        }
     }
 }

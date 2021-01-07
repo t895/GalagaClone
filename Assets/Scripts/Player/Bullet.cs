@@ -6,18 +6,18 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 20f;
     [SerializeField] private float damage = 10f;
-    public GameObject explosionEffect;
+    [SerializeField] private GameObject explosionEffect;
     [SerializeField] private int collisions = 1;
+    [SerializeField] private float timeToDestroy;
     [SerializeField] private bool canDestroyIndestructableBullets = false;
-    
     private Rigidbody2D body;
-
+    
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         transform.parent = null;
         body.velocity = transform.right * speed;
-        Destroy(gameObject, 2f);
+        StartCoroutine(GC());
         if(canDestroyIndestructableBullets)
             Physics2D.IgnoreLayerCollision(8, 12, false);
     }
@@ -34,5 +34,17 @@ public class Bullet : MonoBehaviour
 
         if(collisions == 0)
             Destroy(gameObject);
+    }
+
+    private void Explode()
+    {
+        GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
+
+    private IEnumerator GC()
+    {
+        yield return new WaitForSeconds(timeToDestroy);
+        Explode();
     }
 }

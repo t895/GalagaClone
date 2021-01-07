@@ -46,11 +46,5 @@ public class PowerupStatus : MonoBehaviour
 
         public PowerupType Powerup { get { return powerupType; } }
         public Sprite Sprite { get { return powerupSprite; } }
-    
-        public PowerupDefinition(PowerupType _powerupType, Sprite _powerupSprite)
-        {
-            powerupType = _powerupType;
-            powerupSprite = _powerupSprite;
-        }
     }
 }

@@ -9,6 +9,7 @@ public class StatPickup : MonoBehaviour
     [SerializeField] private PickupType pickupType;
     [SerializeField] private float amount = 0f;
     public AudioClip pickupClip;
+    public AudioClip despawnClip;
     private AudioSource audioPlayer;
     private ParticleSystem pickupAnimation;
     private SpriteRenderer sprite;
@@ -33,21 +34,21 @@ public class StatPickup : MonoBehaviour
         if(pickupType == PickupType.health && _player.health < _player.maxHealth)
         {
             _player.Heal(amount);
-            PickedUp();
+            Despawn(pickupClip);
         }
         else if(pickupType == PickupType.melee && _player.meleePower < _player.maxMeleePower)
         {
             _player.Recharge(amount);
-            PickedUp();
+            Despawn(pickupClip);
         }
     }
 
-    void PickedUp()
+    void Despawn(AudioClip _clip)
     {
-        audioPlayer.PlayOneShot(pickupClip);
+        audioPlayer.PlayOneShot(_clip);
         pickupAnimation.Play();
         sprite.enabled = false;
         hitbox.enabled = false;
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 1f);
     }
 }

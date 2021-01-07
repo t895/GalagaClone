@@ -10,7 +10,10 @@ public class WeaponPowerup : MonoBehaviour
     [SerializeField] private int powerupDuration;
     [SerializeField] private GameObject customBullet;
     [SerializeField] private float customRate;
+    [SerializeField] private float timeToDespawn;
     public AudioClip pickupClip;
+    public AudioClip despawnClip;
+
     private AudioSource audioPlayer;
     private ParticleSystem pickupAnimation;
     private SpriteRenderer sprite;
@@ -18,10 +21,11 @@ public class WeaponPowerup : MonoBehaviour
 
     void Start()
     {
+        audioPlayer = GetComponent<AudioSource>();
         pickupAnimation = GetComponent<ParticleSystem>();
         sprite = GetComponent<SpriteRenderer>();
-        audioPlayer = GetComponent<AudioSource>();
         hitbox = GetComponent<BoxCollider2D>();
+        StartCoroutine(Flicker());
     }
 
     void OnTriggerEnter2D(Collider2D _collider) 
@@ -33,15 +37,22 @@ public class WeaponPowerup : MonoBehaviour
     void Take(Gun _gun)
     {
         _gun.PowerupTaken(powerupType, powerupDuration, customBullet, customRate);
-        PickedUp();
+        Despawn(pickupClip);
     }
 
-    void PickedUp()
+    void Despawn(AudioClip _clip)
     {
-        audioPlayer.PlayOneShot(pickupClip);
+        audioPlayer.PlayOneShot(_clip);
         pickupAnimation.Play();
         sprite.enabled = false;
         hitbox.enabled = false;
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 1f);
+    }
+
+    IEnumerator Flicker()
+    {
+        yield return new WaitForSeconds(timeToDespawn);
+        
+        Despawn(despawnClip);
     }
 }
