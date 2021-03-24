@@ -2,20 +2,19 @@
 
 public class PlayerManager : MonoBehaviour
 {
-    public GameObject deathExplosion;
-    public SpriteRenderer playerSprite;
-    public HealthBar healthBar;
-    public Light highlight;
+    [SerializeField] private GameObject deathExplosion;
+    [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private Light highlight;
     public float maxHealth = 100f;
     public float maxMeleePower = 100f;
     public float meleePower;
     public float meleeRechargeRate = 5f;
     public float health;
-    public int score = 0;
     public bool isAlive = true;
     public bool canTakeDamage = true;
-    public AudioClip explosionClip;
-    public AudioClip hitClip;
+    [SerializeField] private AudioClip explosionClip;
+    [SerializeField] private AudioClip hitClip;
+
     private CircleCollider2D hitbox;
     private PlayerController controller;
     private AudioSource audioPlayer;

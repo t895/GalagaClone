@@ -25,6 +25,7 @@ public class WeaponPowerup : MonoBehaviour
         pickupAnimation = GetComponent<ParticleSystem>();
         sprite = GetComponent<SpriteRenderer>();
         hitbox = GetComponent<BoxCollider2D>();
+        StartCoroutine(WaitForDespawn());
     }
 
     void OnTriggerEnter2D(Collider2D _collider) 
@@ -46,5 +47,11 @@ public class WeaponPowerup : MonoBehaviour
         sprite.enabled = false;
         hitbox.enabled = false;
         Destroy(gameObject, 1f);
+    }
+
+    private IEnumerator WaitForDespawn()
+    {
+        yield return new WaitForSeconds(timeToDespawn);
+        Despawn(despawnClip);
     }
 }

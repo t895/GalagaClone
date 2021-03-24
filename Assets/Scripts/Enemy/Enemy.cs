@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
     public GameObject deathExplosion;
     public List<GameObject> randomDrops;
     public AudioClip explosionClip;
-    public AudioClip hitClip;
     private AudioSource audioPlayer;
     private bool isDead = false;
 
@@ -25,7 +24,6 @@ public class Enemy : MonoBehaviour
     {
         if(!isDead) 
         {
-            audioPlayer.PlayOneShot(hitClip);
             health -= _damage;
             if(health <= 0)
                 Die();

@@ -8,6 +8,7 @@ public class StatPickup : MonoBehaviour
 {
     [SerializeField] private PickupType pickupType;
     [SerializeField] private float amount = 0f;
+    [SerializeField] private float timeToDespawn;
     public AudioClip pickupClip;
     public AudioClip despawnClip;
     private AudioSource audioPlayer;
@@ -21,6 +22,7 @@ public class StatPickup : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         audioPlayer = GetComponent<AudioSource>();
         hitbox = GetComponent<BoxCollider2D>();
+        StartCoroutine(WaitForDespawn());
     }
 
     void OnTriggerEnter2D(Collider2D _collider)
@@ -50,5 +52,11 @@ public class StatPickup : MonoBehaviour
         sprite.enabled = false;
         hitbox.enabled = false;
         Destroy(gameObject, 1f);
+    }
+
+    private IEnumerator WaitForDespawn()
+    {
+        yield return new WaitForSeconds(timeToDespawn);
+        Despawn(despawnClip);
     }
 }

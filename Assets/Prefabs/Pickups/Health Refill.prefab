@@ -100,7 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupType: 0
   amount: 25
+  timeToDespawn: 20
   pickupClip: {fileID: 8300000, guid: 55a80f4bb6ef2da46a808476ddf6254f, type: 3}
+  despawnClip: {fileID: 8300000, guid: 5dd47360bc1f20a4095ba6143ab8aa8c, type: 3}
 --- !u!61 &8171477757123321535
 BoxCollider2D:
   m_ObjectHideFlags: 0

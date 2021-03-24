@@ -72,7 +72,7 @@ public class Gun : MonoBehaviour
     {
         for(int i = 0; i < powerupAudio.Count; i++)
         {
-            if(powerupAudio[i].Powerup == _powerupType)
+            if(powerupAudio[i].Powerup == _powerupType && powerupAudio[i].Audio != null)
                 return powerupAudio[i].Audio;
         }
         return defaultShotSound;
@@ -100,8 +100,7 @@ public class Gun : MonoBehaviour
         else
             customRate = 0;
 
-        if(FindAudio(_powerupType) != null)
-            currentSound = FindAudio(_powerupType);
+        currentSound = FindAudio(powerupType);
     }
 
     private void DisablePowerup()
@@ -144,6 +143,7 @@ public class Gun : MonoBehaviour
     [System.Serializable]
     private class PowerupAudio
     {
+        [SerializeField] private string name;
         [SerializeField] private PowerupType powerupType;
         [SerializeField] private AudioClip powerupAudio;
 

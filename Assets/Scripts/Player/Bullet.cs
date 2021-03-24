@@ -10,11 +10,14 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int collisions = 1;
     [SerializeField] private float timeToDestroy;
     [SerializeField] private bool canDestroyIndestructableBullets = false;
+    [SerializeField] private AudioClip hitClip;
     private Rigidbody2D body;
+    private SpriteRenderer sprite;
     
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
         transform.parent = null;
         body.velocity = transform.right * speed;
         StartCoroutine(GC());
@@ -33,18 +36,21 @@ public class Bullet : MonoBehaviour
         }
 
         if(collisions == 0)
-            Destroy(gameObject);
+            Explode(false);
     }
 
-    private void Explode()
+    private void Explode(bool _playAudio)
     {
+        sprite.enabled = false;
         GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+        if(_playAudio)
+            explosion.GetComponent<AudioSource>().PlayOneShot(hitClip);
         Destroy(gameObject);
     }
 
     private IEnumerator GC()
     {
         yield return new WaitForSeconds(timeToDestroy);
-        Explode();
+        Explode(false);
     }
 }

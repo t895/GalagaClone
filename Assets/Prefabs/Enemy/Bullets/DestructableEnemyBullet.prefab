@@ -4891,3 +4891,4 @@ MonoBehaviour:
   autoExplodeTime: 7
   explosionEffect: {fileID: 4273821731572744069, guid: 13820ebb413e0fb47b9bb1476fb57fb4,
     type: 3}
+  hitClip: {fileID: 8300000, guid: 902e0b0796524bd45b7586b45eb3e774, type: 3}

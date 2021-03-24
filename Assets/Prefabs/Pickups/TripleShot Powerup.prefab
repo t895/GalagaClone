@@ -102,7 +102,9 @@ MonoBehaviour:
   powerupDuration: 15
   customBullet: {fileID: 0}
   customRate: 0
+  timeToDespawn: 10
   pickupClip: {fileID: 8300000, guid: 77d54ca3610b37b4e9483a1ff4b61cd9, type: 3}
+  despawnClip: {fileID: 8300000, guid: 5dd47360bc1f20a4095ba6143ab8aa8c, type: 3}
 --- !u!61 &7975491213262635803
 BoxCollider2D:
   m_ObjectHideFlags: 0

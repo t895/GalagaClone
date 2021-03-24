@@ -5203,14 +5203,12 @@ MonoBehaviour:
   deathExplosion: {fileID: 4273821731572744069, guid: 3098c6f140ef9ca4792bd0d66efc18aa,
     type: 3}
   playerSprite: {fileID: 5233595214279674584}
-  healthBar: {fileID: 0}
   highlight: {fileID: 5110581276195102822}
   maxHealth: 100
   maxMeleePower: 100
   meleePower: 0
   meleeRechargeRate: 5
   health: 0
-  score: 0
   isAlive: 1
   canTakeDamage: 1
   explosionClip: {fileID: 8300000, guid: 631b853a27a41604983d3df719d1d37a, type: 3}
@@ -5257,16 +5255,20 @@ MonoBehaviour:
   fireRate: 0.1
   powerupType: 0
   defaultShotSound: {fileID: 8300000, guid: 637d1721c1560424396bbe337cb1090b, type: 3}
+  disablePowerupSound: {fileID: 8300000, guid: 984ea7f7fa1345445b34b190033a326f, type: 3}
   powerupAudio:
-  - powerupType: 0
+  - name: Default
+    powerupType: 0
     powerupAudio: {fileID: 8300000, guid: 637d1721c1560424396bbe337cb1090b, type: 3}
-  - powerupType: 1
+  - name: Big Bullets
+    powerupType: 1
     powerupAudio: {fileID: 8300000, guid: 8675d035d1dd7b741bca01a47b85e473, type: 3}
-  - powerupType: 2
+  - name: Triple Shot
+    powerupType: 2
     powerupAudio: {fileID: 0}
-  - powerupType: 3
+  - name: Octa Shot
+    powerupType: 3
     powerupAudio: {fileID: 0}
-  audioPlayer: {fileID: 0}
   baseShotOrigins:
   - {fileID: 5233595212918394661}
   - {fileID: 7064835894728283785}

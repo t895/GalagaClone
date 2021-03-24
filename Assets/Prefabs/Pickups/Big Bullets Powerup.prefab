@@ -103,7 +103,9 @@ MonoBehaviour:
   customBullet: {fileID: 6341607638929560228, guid: dc98bb36fbfd2b142a51fa5384692797,
     type: 3}
   customRate: 0.3
+  timeToDespawn: 10
   pickupClip: {fileID: 8300000, guid: 77d54ca3610b37b4e9483a1ff4b61cd9, type: 3}
+  despawnClip: {fileID: 8300000, guid: 902e0b0796524bd45b7586b45eb3e774, type: 3}
 --- !u!61 &6640487694982271300
 BoxCollider2D:
   m_ObjectHideFlags: 0
