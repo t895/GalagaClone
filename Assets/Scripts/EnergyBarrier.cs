@@ -10,14 +10,18 @@ public class EnergyBarrier : MonoBehaviour
 
     [SerializeField] private float turnSpeed;
     [SerializeField] private float moveSpeed;
+
     [SerializeField] private List<Transform> targets;
     private int currentTarget;
 
     [SerializeField] private float damage;
 
+    [SerializeField] private float animationTransitionTime;
+
     void Start()
     {
         damage *= Time.deltaTime;
+        StartCoroutine(AnimateIn());
     }
 
     void Update()
@@ -28,6 +32,7 @@ public class EnergyBarrier : MonoBehaviour
             Shift();
         else if(barrier == BarrierType.shiftOnce)
             ShiftOnce();
+
     }
 
     void OnTriggerStay2D(Collider2D _object)
@@ -62,6 +67,28 @@ public class EnergyBarrier : MonoBehaviour
         ShiftOnce();
         if(currentTarget >= targets.Count)
             currentTarget = 0;
+    }
+
+    private IEnumerator AnimateIn()
+    {
+        Vector3 initialTransform = new Vector3(0.01f, 0.01f, 0.01f);
+        Vector3 finalTransform = transform.localScale;
+
+        float currentTime = 0.0f;
+        
+        do
+        {
+            //Create lerp information
+            currentTime += Time.deltaTime;
+            float t = currentTime / animationTransitionTime;
+            t = Mathf.Sin(t * Mathf.PI * 0.5f);
+
+            //Lerp!
+            gameObject.transform.localScale = Vector3.Lerp(initialTransform, finalTransform, t);
+            Debug.Log(currentTime / animationTransitionTime);
+            yield return null;
+        }
+        while(currentTime <= animationTransitionTime);
     }
 
 }
