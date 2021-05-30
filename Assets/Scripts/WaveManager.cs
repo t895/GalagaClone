@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class WaveManager : MonoBehaviour
 {
     [SerializeField] private Wave[] waveArray = default;
     private int currentWave = 0;
@@ -14,12 +14,16 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
+
         if(waveArray.Length > currentWave && GameState.currentState == GameState.LevelStatus.levelInProgress)
         {
             waveArray[currentWave].Check();
             Enemy[] enemies = FindObjectsOfType<Enemy>();
             if(enemies.Length < 1 && !(waveArray[currentWave].waitingToSpawn))
             {
+                EnergyBarrier[] barriers = FindObjectsOfType<EnergyBarrier>();
+                foreach(EnergyBarrier barrier in barriers)
+                    barrier.Despawn();
                 currentWave++;
                 SpawnWave();
             }
@@ -28,6 +32,9 @@ public class EnemyManager : MonoBehaviour
         if(waveArray.Length <= currentWave && GameState.currentState == GameState.LevelStatus.levelInProgress)
         {
             GameState.currentState = GameState.LevelStatus.levelComplete;
+
+            
+
             Debug.Log("Level is complete");
         }
     }
@@ -43,6 +50,7 @@ public class EnemyManager : MonoBehaviour
     {
         public PickupSpawner pickup;
         public List<EnemySpawner> enemies = default;
+        public List<EnergyBarrierSpawner> barriers = default;
         public float timer = 0;
         public bool waitingToSpawn = true;
         private float timeToSpawn;
@@ -59,6 +67,7 @@ public class EnemyManager : MonoBehaviour
             if(Time.time > timeToSpawn && waitingToSpawn)
             {
                 SpawnEnemies();
+                SpawnBarriers();
                 waitingToSpawn = false;
             }
         }
@@ -67,6 +76,12 @@ public class EnemyManager : MonoBehaviour
         {
             foreach(EnemySpawner enemy in enemies)
                 enemy.Spawn();
+        }
+
+        public void SpawnBarriers()
+        {
+            foreach(EnergyBarrierSpawner barrier in barriers)
+                barrier.Spawn();
         }
     }
 }

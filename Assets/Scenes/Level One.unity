@@ -588,12 +588,12 @@ GameObject:
   - component: {fileID: 167237024}
   - component: {fileID: 167237023}
   m_Layer: 0
-  m_Name: Enemy Manager
+  m_Name: Level Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &167237023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,6 +612,8 @@ MonoBehaviour:
     - {fileID: 388971209}
     - {fileID: 1090882437}
     - {fileID: 1280294919}
+    barriers:
+    - {fileID: 1013923679}
     timer: 1
     waitingToSpawn: 1
   - pickup: {fileID: 1332644752}
@@ -619,6 +621,7 @@ MonoBehaviour:
     - {fileID: 176854513}
     - {fileID: 1195494215}
     - {fileID: 1027584865}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
   - pickup: {fileID: 1596454728}
@@ -629,6 +632,7 @@ MonoBehaviour:
     - {fileID: 517992285}
     - {fileID: 1579810480}
     - {fileID: 1953741468}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
   - pickup: {fileID: 1489766149}
@@ -636,6 +640,7 @@ MonoBehaviour:
     - {fileID: 388971209}
     - {fileID: 1195494215}
     - {fileID: 1027584865}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
   - pickup: {fileID: 0}
@@ -643,6 +648,7 @@ MonoBehaviour:
     - {fileID: 388971209}
     - {fileID: 530133274}
     - {fileID: 1579810480}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
   - pickup: {fileID: 1596454728}
@@ -651,6 +657,7 @@ MonoBehaviour:
     - {fileID: 1027584865}
     - {fileID: 557125275}
     - {fileID: 517992285}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
   - pickup: {fileID: 0}
@@ -659,6 +666,7 @@ MonoBehaviour:
     - {fileID: 176854513}
     - {fileID: 557125275}
     - {fileID: 517992285}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
   - pickup: {fileID: 1489766149}
@@ -671,6 +679,7 @@ MonoBehaviour:
     - {fileID: 530133274}
     - {fileID: 1579810480}
     - {fileID: 1953741468}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
   - pickup: {fileID: 1332644752}
@@ -687,6 +696,7 @@ MonoBehaviour:
     - {fileID: 517992285}
     - {fileID: 1579810480}
     - {fileID: 1953741468}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
 --- !u!4 &167237024
@@ -716,7 +726,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -983,7 +993,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1496,7 +1506,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (9)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1813,7 +1823,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (8)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1960,7 +1970,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (6)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2201,6 +2211,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 706642721}
   m_CullTransparentMesh: 0
+--- !u!1 &744625789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 744625790}
+  m_Layer: 0
+  m_Name: Energy Barrier Spawners
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &744625790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744625789}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.16224328, y: 0.17272848, z: -10.090078}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1013923678}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &829864003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,7 +2255,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (7)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2747,6 +2788,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012777251}
   m_CullTransparentMesh: 0
+--- !u!1 &1013923677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013923678}
+  - component: {fileID: 1013923679}
+  m_Layer: 0
+  m_Name: Energy Barrier Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1013923678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013923677}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 744625790}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1013923679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013923677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 140690dfb87bd0c4986c33a589c5701e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrier: {fileID: 9216188268860504085, guid: 02bc03ca1b5f57c45870a7637dcddb29, type: 3}
+  positions: []
+  size: {x: 9, y: 90, z: 0.2}
 --- !u!1 &1027584864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2760,7 +2847,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (5)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2871,7 +2958,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2994,7 +3081,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (4)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3237,7 +3324,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3762,6 +3849,7 @@ MonoBehaviour:
   - pickup: {fileID: 0}
     enemies:
     - {fileID: 557125275}
+    barriers: []
     timer: 1
     waitingToSpawn: 1
 --- !u!4 &1489445846
@@ -4092,7 +4180,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (10)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4276,7 +4364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1658874311}
   m_Layer: 0
-  m_Name: Spawners
+  m_Name: Enemy Spawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4909,7 +4997,7 @@ GameObject:
   m_Layer: 0
   m_Name: Enemy Spawner (11)
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

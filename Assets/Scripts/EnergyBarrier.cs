@@ -8,6 +8,8 @@ public class EnergyBarrier : MonoBehaviour
 {
     [SerializeField] private BarrierType barrier;
 
+    public Vector3 size = new Vector3(9f, 90f, 0.2f);
+
     [SerializeField] private float turnSpeed;
     [SerializeField] private float moveSpeed;
 
@@ -18,21 +20,48 @@ public class EnergyBarrier : MonoBehaviour
 
     [SerializeField] private float animationTransitionTime;
 
-    void Start()
+    private bool isReady = false;
+
+    private SpriteRenderer sprite;
+
+    void Awake()
     {
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.enabled = false;
+
+        gameObject.transform.localScale = size;
         damage *= Time.deltaTime;
         StartCoroutine(AnimateIn());
     }
 
+    public void Initialize(List<Transform> _positions, Vector3 _size)
+    {
+        if(_positions.Count != 0)
+            targets = _positions;
+        
+        if(_size != Vector3.zero)
+            size = _size;
+
+        sprite.enabled = true;
+        isReady = true;
+    }
+
+    public void Despawn()
+    {
+        StartCoroutine(AnimateOut());
+    }
+
     void Update()
     {
-        if(barrier == BarrierType.spin)
-            Spin();
-        else if(barrier == BarrierType.shift)
-            Shift();
-        else if(barrier == BarrierType.shiftOnce)
-            ShiftOnce();
-
+        if(isReady)
+        {
+            if(barrier == BarrierType.spin)
+                Spin();
+            else if(barrier == BarrierType.shift)
+                Shift();
+            else if(barrier == BarrierType.shiftOnce)
+                ShiftOnce();
+        }
     }
 
     void OnTriggerStay2D(Collider2D _object)
@@ -89,6 +118,30 @@ public class EnergyBarrier : MonoBehaviour
             yield return null;
         }
         while(currentTime <= animationTransitionTime);
+    }
+
+    private IEnumerator AnimateOut()
+    {
+        Vector3 initialTransform = transform.localScale;
+        Vector3 finalTransform = new Vector3(0.01f, 0.01f, 0.01f);
+
+        float currentTime = 0.0f;
+        
+        do
+        {
+            //Create lerp information
+            currentTime += Time.deltaTime;
+            float t = currentTime / animationTransitionTime;
+            t = Mathf.Sin(t * Mathf.PI * 0.5f);
+
+            //Lerp!
+            gameObject.transform.localScale = Vector3.Lerp(initialTransform, finalTransform, t);
+            Debug.Log(currentTime / animationTransitionTime);
+            yield return null;
+        }
+        while(currentTime <= animationTransitionTime);
+
+        Destroy(gameObject);
     }
 
 }
