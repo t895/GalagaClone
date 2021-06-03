@@ -198,9 +198,7 @@ MonoBehaviour:
   parent: {fileID: 1840364791400869185}
   deathExplosion: {fileID: 4273821731572744069, guid: c4f05a3f0fa9a89419bb5c2ba108529f,
     type: 3}
-  randomDrops:
-  - {fileID: 8171477757123321520, guid: 530c8b7f75a82e845a05ff424de01754, type: 3}
-  - {fileID: 3575225779725659739, guid: 931c121e21b72c1419c84f87ba467b57, type: 3}
+  randomDrops: []
   explosionClip: {fileID: 8300000, guid: 631b853a27a41604983d3df719d1d37a, type: 3}
 --- !u!114 &1840364791444761112
 MonoBehaviour:

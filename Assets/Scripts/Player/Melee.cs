@@ -40,6 +40,11 @@ public class Melee : MonoBehaviour
         GameObject explosion = Instantiate(explosionEffect, _object.transform.position, transform.rotation);
         Destroy(explosion, 1f);
         if(_object.GetComponent<Enemy>() != null)
-            _object.GetComponent<Enemy>().TakeDamage(damage);
+        {
+            if(PlayerVariables.playerMultiplyer > 0.5f)
+                _object.GetComponent<Enemy>().TakeDamage(damage * PlayerVariables.playerMultiplyer);
+            else
+                _object.GetComponent<Enemy>().TakeDamage(damage);
+        }
     }
 }

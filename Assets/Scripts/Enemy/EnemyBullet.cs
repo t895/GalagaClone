@@ -31,6 +31,7 @@ public class EnemyBullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D _object)
     {
         PlayerManager _player = _object.GetComponent<PlayerManager>();
+        Melee _melee = _object.GetComponent<Melee>();
 
         if(_player != null)
         {
@@ -40,6 +41,9 @@ public class EnemyBullet : MonoBehaviour
                 _player.TakeDamage(damage);
             }
         }
+
+        if(_melee != null)
+            PlayerVariables.player.HealWithMultiplyer();
 
         if(_player == null && !hasCollided)
             Explode(true);

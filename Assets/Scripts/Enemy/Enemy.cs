@@ -37,13 +37,14 @@ public class Enemy : MonoBehaviour
         GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
         if(randomDropsEnabled)
             Drop();
+        PlayerVariables.player.IncreaseHealingMultiplyer(0.25f);
         Destroy(parent);
     }
 
     void Drop()
     {
         System.Random random = new System.Random();
-        int spawn = random.Next(0, 2);
+        int spawn = random.Next(0, randomDrops.Count);
         if(spawn == 1)
         {
             int item = random.Next(0, randomDrops.Count);

@@ -8,7 +8,8 @@ public class EnergyBarrier : MonoBehaviour
 {
     [SerializeField] private BarrierType barrier;
 
-    public Vector3 size = new Vector3(9f, 90f, 0.2f);
+    public Vector3 defaultSize = Vector3.zero;
+    public Vector3 customSize = Vector3.zero;
 
     [SerializeField] private float turnSpeed;
     [SerializeField] private float moveSpeed;
@@ -29,9 +30,8 @@ public class EnergyBarrier : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         sprite.enabled = false;
 
-        gameObject.transform.localScale = size;
-        damage *= Time.deltaTime;
-        StartCoroutine(AnimateIn());
+        defaultSize = gameObject.transform.localScale;
+        damage *= Time.deltaTime;   
     }
 
     public void Initialize(List<Transform> _positions, Vector3 _size)
@@ -40,10 +40,12 @@ public class EnergyBarrier : MonoBehaviour
             targets = _positions;
         
         if(_size != Vector3.zero)
-            size = _size;
+            customSize = _size;
 
         sprite.enabled = true;
         isReady = true;
+        
+        StartCoroutine(AnimateIn());
     }
 
     public void Despawn()
@@ -101,7 +103,13 @@ public class EnergyBarrier : MonoBehaviour
     private IEnumerator AnimateIn()
     {
         Vector3 initialTransform = new Vector3(0.01f, 0.01f, 0.01f);
-        Vector3 finalTransform = transform.localScale;
+        Vector3 finalTransform;
+        if(customSize != Vector3.zero)
+            finalTransform = customSize;
+        else
+            finalTransform = defaultSize;
+
+        Debug.Log(finalTransform);
 
         float currentTime = 0.0f;
         
@@ -114,7 +122,6 @@ public class EnergyBarrier : MonoBehaviour
 
             //Lerp!
             gameObject.transform.localScale = Vector3.Lerp(initialTransform, finalTransform, t);
-            Debug.Log(currentTime / animationTransitionTime);
             yield return null;
         }
         while(currentTime <= animationTransitionTime);
@@ -136,7 +143,6 @@ public class EnergyBarrier : MonoBehaviour
 
             //Lerp!
             gameObject.transform.localScale = Vector3.Lerp(initialTransform, finalTransform, t);
-            Debug.Log(currentTime / animationTransitionTime);
             yield return null;
         }
         while(currentTime <= animationTransitionTime);

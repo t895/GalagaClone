@@ -1,4 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+
+[System.Serializable]
+public static class PlayerVariables
+{
+    public static PlayerManager player;
+    public static float playerHealAmount = 0.3f;
+    public static float playerMultiplyer = 0f;
+}
 
 public class PlayerManager : MonoBehaviour
 {
@@ -15,9 +24,20 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private AudioClip explosionClip;
     [SerializeField] private AudioClip hitClip;
 
+    [SerializeField] private float healingReduction = 0.05f;
+    [SerializeField] private float healingIncrease = 0.075f;
+
+    [SerializeField] private int multiplyerDecayTime = 1;
+    [SerializeField] private float multiplyerDecay = 0.5f;
+
     private CircleCollider2D hitbox;
     private PlayerController controller;
     private AudioSource audioPlayer;
+
+    void Awake()
+    {
+        PlayerVariables.player = this;
+    }
 
     void Start()
     {
@@ -27,6 +47,8 @@ public class PlayerManager : MonoBehaviour
         controller = GetComponent<PlayerController>();
         audioPlayer = GetComponent<AudioSource>();
         meleeRechargeRate *= Time.deltaTime;
+
+        StartCoroutine(MultiplyerReduction(multiplyerDecayTime, multiplyerDecay));
     }
     void Update()
     {
@@ -56,6 +78,40 @@ public class PlayerManager : MonoBehaviour
     {
         if(health < 100)
             health += _healAmount;
+        if(health > 100)
+            health = maxHealth;
+    }
+
+    public void HealWithMultiplyer()
+    {
+        Heal(PlayerVariables.playerHealAmount * PlayerVariables.playerMultiplyer);
+    }
+
+    public void IncreaseHealingMultiplyer(float _amount)
+    {
+        if(_amount != 0)
+            if((PlayerVariables.playerMultiplyer + _amount) > 0)
+                PlayerVariables.playerMultiplyer += _amount;
+        else
+            PlayerVariables.playerMultiplyer += healingIncrease;
+    }
+
+    public void ReduceHealingMultiplyer()
+    {
+        if((PlayerVariables.playerMultiplyer - healingReduction) > 0)
+            PlayerVariables.playerMultiplyer -= healingReduction;
+    }
+
+    private IEnumerator MultiplyerReduction(int _multiplyerDecayTime, float _multiplyerDecay)
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(_multiplyerDecayTime);
+            if(PlayerVariables.playerMultiplyer - _multiplyerDecay <= 0)
+                PlayerVariables.playerMultiplyer = 0;
+            else
+                PlayerVariables.playerMultiplyer -= _multiplyerDecay;
+        }
     }
 
     public void Recharge(float _rechargeAmount)

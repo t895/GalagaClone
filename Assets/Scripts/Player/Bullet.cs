@@ -23,15 +23,25 @@ public class Bullet : MonoBehaviour
         StartCoroutine(GC());
         if(canDestroyIndestructableBullets)
             Physics2D.IgnoreLayerCollision(8, 12, false);
+        else
+            Physics2D.IgnoreLayerCollision(8, 12, true);
+
     }
 
     void OnTriggerEnter2D(Collider2D _object)
     {
+        Enemy _enemy = _object.GetComponent<Enemy>();
+        EnemyBullet _bullet = _object.GetComponent<EnemyBullet>();
+
         if(collisions > 0)
         {
             GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-            if(_object.GetComponent<Enemy>() != null)
-                _object.GetComponent<Enemy>().TakeDamage(damage);
+            if(_enemy != null)
+                _enemy.TakeDamage(damage);
+
+            if(_bullet != null)
+                PlayerVariables.player.HealWithMultiplyer();
+
             collisions--;
         }
 
