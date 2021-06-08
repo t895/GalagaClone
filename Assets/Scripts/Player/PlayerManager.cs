@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour
         if(!GameState.paused)
         {
             if(meleePower < maxMeleePower)
-                meleePower += meleeRechargeRate;
+                meleePower += meleeRechargeRate * Time.deltaTime;
 
             if(meleePower > 100f)
                 meleePower = 100f;

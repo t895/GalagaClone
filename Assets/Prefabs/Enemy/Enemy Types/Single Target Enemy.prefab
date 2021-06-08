@@ -206,8 +206,8 @@ MonoBehaviour:
   speed: 3
   shotSound: {fileID: 8300000, guid: acfe19050e591024d82996886c7ed00e, type: 3}
   bulletTypes:
-  - {fileID: 8612078428502151096, guid: d2d2d54eebc1c03449f884d4384d38ec, type: 3}
-  - {fileID: 8612078428502151096, guid: 9bd6086b5805a2949959cca2151ebd21, type: 3}
+  - EnemyBullet
+  - IEnemyBullet
   shotSources:
   - {fileID: 8252658148223064348}
 --- !u!61 &8252658149870147312

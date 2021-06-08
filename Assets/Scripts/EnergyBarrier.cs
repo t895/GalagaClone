@@ -109,10 +109,7 @@ public class EnergyBarrier : MonoBehaviour
         else
             finalTransform = defaultSize;
 
-        Debug.Log(finalTransform);
-
         float currentTime = 0.0f;
-        
         do
         {
             //Create lerp information

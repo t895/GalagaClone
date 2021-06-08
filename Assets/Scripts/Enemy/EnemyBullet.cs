@@ -8,24 +8,48 @@ public class EnemyBullet : MonoBehaviour
     public GameObject explosionEffect;
     [SerializeField] private AudioClip hitClip;
     private Rigidbody2D body;
-    private SpriteRenderer sprite;
+
+    public Color indestructibleSpriteColor;
+    public Color destructibleSpriteColor;
+    private SpriteRenderer spriteRenderer;
+
     private bool hasCollided = false;
     private float damage;
     private float speed;
 
-    public void Initialize(float _damage, float _speed)
+    private Coroutine gc;
+
+    public void Initialize(string _tag,  float _damage, float _speed)
     {
+        Debug.Log(_tag);
+        if(_tag.Equals("EnemyBullet"))
+        {
+            Debug.Log("Enemy Bullet Tag" + LayerMask.NameToLayer(_tag));
+            spriteRenderer.color = destructibleSpriteColor;
+            gameObject.layer = LayerMask.NameToLayer(_tag);
+        }
+        else if(_tag.Equals("IEnemyBullet"))
+        {
+            Debug.Log("Indestructible Enemy Bullet Tag" + LayerMask.NameToLayer(_tag));
+            spriteRenderer.color = indestructibleSpriteColor;
+            gameObject.layer = LayerMask.NameToLayer(_tag);
+        }
+
+        if(gc != null)
+            StopCoroutine(gc);
+        gc = StartCoroutine(GC());
+
         damage = _damage;
         speed = _speed;
+        body.velocity = transform.up * speed;
+        hasCollided = false;
     }
 
-    void Start()
+    void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        sprite = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         transform.parent = null;
-        body.velocity = transform.up * speed;
-        StartCoroutine(GC());
     }
 
     void OnTriggerEnter2D(Collider2D _object)
@@ -33,20 +57,22 @@ public class EnemyBullet : MonoBehaviour
         PlayerManager _player = _object.GetComponent<PlayerManager>();
         Melee _melee = _object.GetComponent<Melee>();
 
-        if(_player != null)
+        if(!hasCollided) 
         {
-            if(_player.canTakeDamage && !hasCollided)
+            if(_player != null)
             {
-                Explode(true);
-                _player.TakeDamage(damage);
+                if(_player.canTakeDamage)
+                {
+                    Explode(true);
+                    _player.TakeDamage(damage);
+                }
             }
+            if(_player == null)
+                Explode(true);
+
+            if(_melee != null)
+                PlayerVariables.player.HealWithMultiplyer();
         }
-
-        if(_melee != null)
-            PlayerVariables.player.HealWithMultiplyer();
-
-        if(_player == null && !hasCollided)
-            Explode(true);
     }
 
     private void Explode(bool _playAudio)
@@ -55,8 +81,8 @@ public class EnemyBullet : MonoBehaviour
         if(_playAudio)
             explosion.GetComponent<AudioSource>().PlayOneShot(hitClip);
         hasCollided = true;
-        sprite.enabled = false;
-        Destroy(gameObject);
+        //spriteRenderer.enabled = false;
+        gameObject.SetActive(false);
     }
 
     private IEnumerator GC()
