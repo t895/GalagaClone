@@ -6,18 +6,22 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 20f;
     [SerializeField] private float damage = 10f;
-    [SerializeField] private GameObject explosionEffect;
     [SerializeField] private int collisions = 1;
     [SerializeField] private float timeToDestroy;
     [SerializeField] private bool canDestroyIndestructableBullets = false;
     [SerializeField] private AudioClip hitClip;
+
     private Rigidbody2D body;
     private SpriteRenderer sprite;
+    private ParticleSystem particles;
+    private AudioSource audioSource;
     
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        particles = GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
         transform.parent = null;
         body.velocity = transform.right * speed;
         StartCoroutine(GC());
@@ -35,7 +39,7 @@ public class Bullet : MonoBehaviour
 
         if(collisions > 0)
         {
-            GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+            particles.Play();
             if(_enemy != null)
                 _enemy.TakeDamage(damage);
 
@@ -49,18 +53,21 @@ public class Bullet : MonoBehaviour
             Explode(false);
     }
 
-    private void Explode(bool _playAudio)
-    {
-        sprite.enabled = false;
-        GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-        if(_playAudio)
-            explosion.GetComponent<AudioSource>().PlayOneShot(hitClip);
-        Destroy(gameObject);
-    }
-
     private IEnumerator GC()
     {
         yield return new WaitForSeconds(timeToDestroy);
         Explode(false);
+    }
+
+    private void Explode(bool _playAudio)
+    {
+        sprite.enabled = false;
+        body.velocity = Vector2.zero;
+        audioSource.PlayOneShot(hitClip);
+        particles.Play();
+        /*GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+        if(_playAudio)
+            explosion.GetComponent<AudioSource>().PlayOneShot(hitClip);*/
+        //Destroy(gameObject);
     }
 }

@@ -5,32 +5,42 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     public float autoExplodeTime;
-    public GameObject explosionEffect;
     [SerializeField] private AudioClip hitClip;
     private Rigidbody2D body;
 
     public Color indestructibleSpriteColor;
     public Color destructibleSpriteColor;
     private SpriteRenderer spriteRenderer;
+    
+    private ParticleSystem particles;
+    private AudioSource audioSource;
+    private Collider2D hitbox;
 
-    private bool hasCollided = false;
     private float damage;
     private float speed;
 
     private Coroutine gc;
+    private Coroutine finishParticles;
+
+    void Awake()
+    {
+        body = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        particles = GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
+        hitbox = GetComponent<Collider2D>();
+        transform.parent = null;
+    }
 
     public void Initialize(string _tag,  float _damage, float _speed)
     {
-        Debug.Log(_tag);
         if(_tag.Equals("EnemyBullet"))
         {
-            Debug.Log("Enemy Bullet Tag" + LayerMask.NameToLayer(_tag));
             spriteRenderer.color = destructibleSpriteColor;
             gameObject.layer = LayerMask.NameToLayer(_tag);
         }
         else if(_tag.Equals("IEnemyBullet"))
         {
-            Debug.Log("Indestructible Enemy Bullet Tag" + LayerMask.NameToLayer(_tag));
             spriteRenderer.color = indestructibleSpriteColor;
             gameObject.layer = LayerMask.NameToLayer(_tag);
         }
@@ -42,14 +52,8 @@ public class EnemyBullet : MonoBehaviour
         damage = _damage;
         speed = _speed;
         body.velocity = transform.up * speed;
-        hasCollided = false;
-    }
-
-    void Awake()
-    {
-        body = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        transform.parent = null;
+        spriteRenderer.enabled = true;
+        hitbox.enabled = true;
     }
 
     void OnTriggerEnter2D(Collider2D _object)
@@ -57,37 +61,36 @@ public class EnemyBullet : MonoBehaviour
         PlayerManager _player = _object.GetComponent<PlayerManager>();
         Melee _melee = _object.GetComponent<Melee>();
 
-        if(!hasCollided) 
+        if(_player != null)
         {
-            if(_player != null)
+            if(_player.canTakeDamage)
             {
-                if(_player.canTakeDamage)
-                {
-                    Explode(true);
-                    _player.TakeDamage(damage);
-                }
-            }
-            if(_player == null)
                 Explode(true);
-
-            if(_melee != null)
-                PlayerVariables.player.HealWithMultiplyer();
+                _player.TakeDamage(damage);
+            }
         }
-    }
+        else
+        {
+            Explode(true);
+        }
 
-    private void Explode(bool _playAudio)
-    {
-        GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-        if(_playAudio)
-            explosion.GetComponent<AudioSource>().PlayOneShot(hitClip);
-        hasCollided = true;
-        //spriteRenderer.enabled = false;
-        gameObject.SetActive(false);
+        if(_melee != null)
+            PlayerVariables.player.HealWithMultiplyer();
     }
 
     private IEnumerator GC()
     {
         yield return new WaitForSeconds(autoExplodeTime);
         Explode(false);
+    }
+
+    private void Explode(bool _playAudio)
+    {
+        if(_playAudio)
+            audioSource.PlayOneShot(hitClip);
+        hitbox.enabled = false;
+        spriteRenderer.enabled = false;
+        body.velocity = Vector2.zero;
+        particles.Play();
     }
 }

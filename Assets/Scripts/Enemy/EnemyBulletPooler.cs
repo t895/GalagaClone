@@ -59,14 +59,41 @@ public class EnemyBulletPooler : MonoBehaviour
             return null;
         }
 
-        GameObject objectToSpawn = poolDictionary[_tag].Dequeue();
+        GameObject objectToSpawn = null;
+        if(!poolDictionary[_tag].Peek().activeSelf)
+        {
+            objectToSpawn = poolDictionary[_tag].Dequeue();
 
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = _position;
-        objectToSpawn.transform.rotation = _rotation;
+            SetObjectPosition(objectToSpawn, _position, _rotation);
 
-        poolDictionary[_tag].Enqueue(objectToSpawn);
+            poolDictionary[_tag].Enqueue(objectToSpawn);
+        }
+        else
+        {
+            Debug.Log("Adding a new prefab to the current pool");
+            foreach(Pool pool in pools)
+            {
+                if(pool.tag.Equals(_tag))
+                {
+                    objectToSpawn = Instantiate(pool.prefab);
 
+                    SetObjectPosition(objectToSpawn, _position, _rotation);
+
+                    poolDictionary[_tag].Enqueue(objectToSpawn);
+                    break;
+                }
+            }
+        }
+
+        if(objectToSpawn == null)
+            Debug.LogWarning("Object spawned from pool is null");
         return objectToSpawn;
+    }
+
+    private void SetObjectPosition(GameObject _objectToSpawn, Vector3 _position, Quaternion _rotation)
+    {
+        _objectToSpawn.SetActive(true);
+        _objectToSpawn.transform.position = _position;
+        _objectToSpawn.transform.rotation = _rotation;
     }
 }

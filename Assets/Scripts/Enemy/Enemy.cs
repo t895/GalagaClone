@@ -11,18 +11,22 @@ public class Enemy : MonoBehaviour
     public GameObject deathExplosion;
     public List<GameObject> randomDrops;
     public AudioClip explosionClip;
+
     private AudioSource audioPlayer;
+    private Collider2D hitbox;
+
     private bool isDead = false;
 
     void Start()
     {
         audioPlayer = GetComponent<AudioSource>();
+        hitbox = GetComponent<Collider2D>();
         health = maxHealth;
     }
 
     public void TakeDamage(float _damage)
     {
-        if(!isDead) 
+        if(!isDead)
         {
             health -= _damage;
             if(health <= 0)
@@ -33,6 +37,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         isDead = true;
+        hitbox.enabled = false;
         audioPlayer.PlayOneShot(explosionClip);
         GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
         if(randomDropsEnabled)
