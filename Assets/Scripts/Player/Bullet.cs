@@ -9,19 +9,14 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int collisions = 1;
     [SerializeField] private float timeToDestroy;
     [SerializeField] private bool canDestroyIndestructableBullets = false;
-    [SerializeField] private AudioClip hitClip;
 
     private Rigidbody2D body;
     private SpriteRenderer sprite;
-    private ParticleSystem particles;
-    private AudioSource audioSource;
     
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-        particles = GetComponent<ParticleSystem>();
-        audioSource = GetComponent<AudioSource>();
         transform.parent = null;
         body.velocity = transform.right * speed;
         StartCoroutine(GC());
@@ -29,7 +24,6 @@ public class Bullet : MonoBehaviour
             Physics2D.IgnoreLayerCollision(8, 12, false);
         else
             Physics2D.IgnoreLayerCollision(8, 12, true);
-
     }
 
     void OnTriggerEnter2D(Collider2D _object)
@@ -39,7 +33,8 @@ public class Bullet : MonoBehaviour
 
         if(collisions > 0)
         {
-            particles.Play();
+            ObjectPooler.Instance
+                .SpawnFromPool(PooledObject.BulletExplosion, gameObject.transform.position, gameObject.transform.rotation);
             if(_enemy != null)
                 _enemy.TakeDamage(damage);
 
@@ -63,11 +58,8 @@ public class Bullet : MonoBehaviour
     {
         sprite.enabled = false;
         body.velocity = Vector2.zero;
-        audioSource.PlayOneShot(hitClip);
-        particles.Play();
-        /*GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
-        if(_playAudio)
-            explosion.GetComponent<AudioSource>().PlayOneShot(hitClip);*/
-        //Destroy(gameObject);
+        ObjectPooler.Instance
+            .SpawnFromPool(PooledObject.BulletExplosion, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(gameObject);
     }
 }

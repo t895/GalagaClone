@@ -12,7 +12,6 @@ public class EnemyBullet : MonoBehaviour
     public Color destructibleSpriteColor;
     private SpriteRenderer spriteRenderer;
     
-    private ParticleSystem particles;
     private AudioSource audioSource;
     private Collider2D hitbox;
 
@@ -26,7 +25,6 @@ public class EnemyBullet : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        particles = GetComponent<ParticleSystem>();
         audioSource = GetComponent<AudioSource>();
         hitbox = GetComponent<Collider2D>();
         transform.parent = null;
@@ -64,15 +62,9 @@ public class EnemyBullet : MonoBehaviour
         if(_player != null)
         {
             if(_player.canTakeDamage)
-            {
-                Explode(true);
                 _player.TakeDamage(damage);
-            }
         }
-        else
-        {
-            Explode(true);
-        }
+        Explode();
 
         if(_melee != null)
             PlayerVariables.player.HealWithMultiplyer();
@@ -81,16 +73,16 @@ public class EnemyBullet : MonoBehaviour
     private IEnumerator GC()
     {
         yield return new WaitForSeconds(autoExplodeTime);
-        Explode(false);
+        Explode();
     }
 
-    private void Explode(bool _playAudio)
+    private void Explode()
     {
-        if(_playAudio)
-            audioSource.PlayOneShot(hitClip);
+        ObjectPooler.Instance
+            .SpawnFromPool(PooledObject.BulletExplosion, gameObject.transform.position, gameObject.transform.rotation);
         hitbox.enabled = false;
         spriteRenderer.enabled = false;
         body.velocity = Vector2.zero;
-        particles.Play();
+        gameObject.SetActive(false);
     }
 }

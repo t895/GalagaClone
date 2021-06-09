@@ -12,12 +12,8 @@ public class EnemyWeapon : MonoBehaviour
     public List<string> bulletTypes;
     public List<Transform> shotSources;
 
-    private EnemyBulletPooler bulletPooler;
-
     void Start()
     {
-        bulletPooler = EnemyBulletPooler.Instance;
-
         audioPlayer = GetComponent<AudioSource>();
         StartCoroutine(ShootLoop());
     }
@@ -45,10 +41,8 @@ public class EnemyWeapon : MonoBehaviour
     private void Shoot(int _typeIndex, int _positionIndex, float _damage, float _speed)
     {
         audioPlayer.PlayOneShot(shotSound);
-        EnemyBulletPooler.Instance
-            .SpawnFromPool("Bullet", shotSources[_positionIndex].position, shotSources[_positionIndex].rotation)
+        ObjectPooler.Instance
+            .SpawnFromPool(PooledObject.Bullet, shotSources[_positionIndex].position, shotSources[_positionIndex].rotation)
             .GetComponent<EnemyBullet>().Initialize(bulletTypes[_typeIndex], _damage, _speed);
-        //GameObject bullet = Instantiate(bulletTypes[_typeIndex], shotSources[_positionIndex]);
-        //bullet.GetComponent<EnemyBullet>().Initialize(_damage, _speed);
     }
 }

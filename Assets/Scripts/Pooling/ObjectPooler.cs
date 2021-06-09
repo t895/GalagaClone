@@ -11,18 +11,25 @@ naively not checking the profiler before diving into this.
 Hopefully this doesn't cause any serious issues in the future...
 **/
 
-public class EnemyBulletPooler : MonoBehaviour
+public enum PooledObject 
+{ 
+    Bullet, 
+    BulletExplosion, 
+    EnemyDeathExplosion
+}
+
+public class ObjectPooler : MonoBehaviour
 {
     [System.Serializable]
     public class Pool
     {
-        public string tag;
+        public PooledObject tag;
         public GameObject prefab;
         public int size;
     }
 
     #region Singleton
-    public static EnemyBulletPooler Instance;
+    public static ObjectPooler Instance;
 
     private void Awake()
     {
@@ -31,11 +38,11 @@ public class EnemyBulletPooler : MonoBehaviour
     #endregion
 
     public List<Pool> pools;
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    public Dictionary<PooledObject, Queue<GameObject>> poolDictionary;
 
     void Start()
     {
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
+        poolDictionary = new Dictionary<PooledObject, Queue<GameObject>>();
 
         foreach(Pool pool in pools)
         {
@@ -51,7 +58,7 @@ public class EnemyBulletPooler : MonoBehaviour
         }
     }
 
-    public GameObject SpawnFromPool(string _tag, Vector3 _position, Quaternion _rotation)
+    public GameObject SpawnFromPool(PooledObject _tag, Vector3 _position, Quaternion _rotation)
     {
         if(!poolDictionary.ContainsKey(_tag))
         {
@@ -70,7 +77,7 @@ public class EnemyBulletPooler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Adding a new prefab to the current pool");
+            Debug.Log("Adding instance to the " + _tag + " pool");
             foreach(Pool pool in pools)
             {
                 if(pool.tag.Equals(_tag))
@@ -87,6 +94,12 @@ public class EnemyBulletPooler : MonoBehaviour
 
         if(objectToSpawn == null)
             Debug.LogWarning("Object spawned from pool is null");
+
+        IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();
+
+        if(pooledObj != null)
+            pooledObj.OnObjectSpawn();
+
         return objectToSpawn;
     }
 
