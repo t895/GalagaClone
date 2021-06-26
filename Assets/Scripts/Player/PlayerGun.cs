@@ -24,7 +24,7 @@ public class PlayerGun : MonoBehaviour
 
     private void Awake()
     {
-        PlayerVariables.playerGun = this;
+        PlayerVariables.playerGun = this;   
     }
 
     private void Start()
@@ -34,6 +34,8 @@ public class PlayerGun : MonoBehaviour
         audioPlayer = GetComponent<AudioSource>();
         currentSound = defaultShotSound;
         currentBullet = defaultBullet;
+
+        PlayerVariables.playerControls.InGame.ClearPowerup.performed += cxt => RemovePowerupManual();
     }
 
     private void Update()
@@ -44,8 +46,6 @@ public class PlayerGun : MonoBehaviour
         {
             if(shotInput == 1)
                 AttemptShot();
-                
-            PlayerVariables.playerControls.InGame.ClearPowerup.performed += cxt => RemovePowerupManual();
         }
     }
 
@@ -68,7 +68,7 @@ public class PlayerGun : MonoBehaviour
 
     private void RemovePowerupManual()
     {
-        if(powerupType != PowerupType.none)
+        if(powerupType != PowerupType.none && !GameState.paused && player.isAlive)
                 DisablePowerup();
     }
 

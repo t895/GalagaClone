@@ -18,20 +18,22 @@ public class InGameUI : MonoBehaviour
     public GameObject victoryUI;
     public GameObject gameOverUI;
 
-    void Update()
+    private void Start()
+    {
+        PlayerVariables.playerControls.InGame.Pause.performed += cxt => ChangePauseState();
+    }
+
+    private void Update()
     {
         if(GameState.currentState == GameState.LevelStatus.levelFailed && !gameOverUI.activeSelf)
             GameOver();
 
         if(GameState.currentState == GameState.LevelStatus.levelComplete && !victoryUI.activeSelf)
             Victory();
-
-        PlayerVariables.playerControls.InGame.Pause.performed += cxt => ChangePauseState();
     }
 
     private void ChangePauseState()
     {
-        Debug.Log(StateName(GameState.currentState));
         if(GameState.currentState == GameState.LevelStatus.levelInProgress)
         {
             if(!GameState.paused)
@@ -41,7 +43,7 @@ public class InGameUI : MonoBehaviour
         }
     }
 
-    string StateName(GameState.LevelStatus _state)
+    private string StateName(GameState.LevelStatus _state)
     {
         if(_state == GameState.LevelStatus.levelInProgress)
             return "Level in Progress";
@@ -65,14 +67,14 @@ public class InGameUI : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    void Victory()
+    private void Victory()
     {
         enableOne(victoryUI);
         GameState.paused = true;
         Time.timeScale = 0f;
     }
 
-    void GameOver()
+    private void GameOver()
     {
         enableOne(gameOverUI);
         Time.timeScale = 0f;

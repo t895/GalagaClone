@@ -58,8 +58,6 @@ public class PlayerController : MonoBehaviour
         movementInput = playerControls.InGame.Move.ReadValue<Vector2>();
         lookInput = playerControls.InGame.Look.ReadValue<Vector2>();
         dodgeInput = playerControls.InGame.Dodge.ReadValue<float>();
-        
-        //Debug.Log(dodgeInput);
 
         if(PlayerVariables.playerManager.isAlive && !GameState.paused) 
         {
