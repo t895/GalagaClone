@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public float maxHealth = 100;
     public float health;
+    public float multiplyerIncrease = 0.25f;
     public bool randomDropsEnabled = false;
     public GameObject parent;
     public GameObject deathExplosion;
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour
 
     private bool isDead = false;
 
-    void Start()
+    private void Start()
     {
         audioPlayer = GetComponent<AudioSource>();
         hitbox = GetComponent<Collider2D>();
@@ -34,7 +35,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
         isDead = true;
         hitbox.enabled = false;
@@ -42,18 +43,18 @@ public class Enemy : MonoBehaviour
         GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
         if(randomDropsEnabled)
             Drop();
-        PlayerVariables.player.IncreaseHealingMultiplyer(0.25f);
+        PlayerVariables.playerManager.IncreaseMultiplyer(multiplyerIncrease);
         Destroy(parent);
     }
 
-    void Drop()
+    private void Drop()
     {
         System.Random random = new System.Random();
         int spawn = random.Next(0, randomDrops.Count);
         if(spawn == 1)
         {
             int item = random.Next(0, randomDrops.Count);
-            GameObject drop = Instantiate(randomDrops[item], transform.position, Quaternion.identity);
+            Instantiate(randomDrops[item], transform.position, Quaternion.identity);
         }
     }
 }

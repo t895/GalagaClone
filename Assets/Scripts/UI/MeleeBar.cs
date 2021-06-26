@@ -9,13 +9,13 @@ public class MeleeBar : MonoBehaviour
     private PlayerManager player;
     private float pastMelee;
 
-    void Start()
+    private void Start()
     {
         slider = GetComponent<Slider>();
-        player = PlayerVariables.player;
+        player = PlayerVariables.playerManager;
     }
 
-    void Update()
+    private void Update()
     {
         if(player.meleePower != pastMelee)
             SetMelee(player.meleePower);

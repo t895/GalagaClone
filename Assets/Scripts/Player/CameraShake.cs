@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
+    private void Awake()
+    {
+        PlayerVariables.cameraShake = this;
+    }
+
     public IEnumerator Shake(float _duration, float _magnitude)
     {
         Vector3 originalPosition = transform.localPosition;

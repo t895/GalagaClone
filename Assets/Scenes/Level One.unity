@@ -600,7 +600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &167237023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234b3fc52daa77a448da69afa47a80e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsTarget: 9999
+  fpsTarget: 144
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2974,7 +2974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrier: {fileID: 9216188268860504085, guid: e9b423e10619c9742ad8a34db7965b0a, type: 3}
   positions: []
-  size: {x: 5, y: 50, z: 0.2}
+  size: {x: 7, y: 55, z: 0.2}
 --- !u!1 &1027584864
 GameObject:
   m_ObjectHideFlags: 0
@@ -3032,7 +3032,7 @@ GameObject:
   - component: {fileID: 1042124748}
   - component: {fileID: 1042124747}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: InputSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3047,16 +3047,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1042124746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018,
+    type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &1042124748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3977,12 +3996,12 @@ GameObject:
   - component: {fileID: 1489445846}
   - component: {fileID: 1489445845}
   m_Layer: 0
-  m_Name: Test Enemy Manager
+  m_Name: Test Level Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1489445845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3996,10 +4015,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveArray:
-  - pickup: {fileID: 0}
+  - pickup: {fileID: 1332644752}
     enemies:
-    - {fileID: 557125275}
-    barriers: []
+    - {fileID: 388971209}
+    barriers:
+    - {fileID: 1013923679}
     timer: 1
     waitingToSpawn: 1
 --- !u!4 &1489445846

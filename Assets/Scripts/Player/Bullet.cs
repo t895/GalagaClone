@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D body;
     private SpriteRenderer sprite;
     
-    void Start()
+    private void Start()
     {
         body = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
             Physics2D.IgnoreLayerCollision(8, 12, true);
     }
 
-    void OnTriggerEnter2D(Collider2D _object)
+    private void OnTriggerEnter2D(Collider2D _object)
     {
         Enemy _enemy = _object.GetComponent<Enemy>();
         EnemyBullet _bullet = _object.GetComponent<EnemyBullet>();
@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
                 _enemy.TakeDamage(damage);
 
             if(_bullet != null)
-                PlayerVariables.player.HealWithMultiplyer();
+                PlayerVariables.playerManager.HealWithMultiplyer();
 
             collisions--;
         }

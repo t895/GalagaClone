@@ -9,13 +9,13 @@ public class HealthBar : MonoBehaviour
     private PlayerManager player;
     private float pastHealth;
 
-    void Start()
+    private void Start()
     {
         slider = GetComponent<Slider>();
-        player = PlayerVariables.player;
+        player = PlayerVariables.playerManager;
     }
 
-    void Update()
+    private void Update()
     {
         if(player.health != pastHealth)
             SetHealth(player.health);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Melee : MonoBehaviour
+public class PlayerMelee : MonoBehaviour
 {
     public PlayerManager player;
     public GameObject explosionEffect;
@@ -13,7 +13,12 @@ public class Melee : MonoBehaviour
     private CircleCollider2D hitbox;
     private AudioSource audioPlayer;
 
-    void Start()
+    private void Awake()
+    {
+        PlayerVariables.playerMelee = this;
+    }
+
+    private void Start()
     {
         particles = GetComponent<ParticleSystem>();
         hitbox = GetComponent<CircleCollider2D>();

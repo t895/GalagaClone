@@ -21,7 +21,7 @@ public class EnemyBullet : MonoBehaviour
     private Coroutine gc;
     private Coroutine finishParticles;
 
-    void Awake()
+    private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -54,10 +54,10 @@ public class EnemyBullet : MonoBehaviour
         hitbox.enabled = true;
     }
 
-    void OnTriggerEnter2D(Collider2D _object)
+    private void OnTriggerEnter2D(Collider2D _object)
     {
         PlayerManager _player = _object.GetComponent<PlayerManager>();
-        Melee _melee = _object.GetComponent<Melee>();
+        PlayerMelee _melee = _object.GetComponent<PlayerMelee>();
 
         if(_player != null)
         {
@@ -67,7 +67,7 @@ public class EnemyBullet : MonoBehaviour
         Explode();
 
         if(_melee != null)
-            PlayerVariables.player.HealWithMultiplyer();
+            PlayerVariables.playerManager.HealWithMultiplyer();
     }
 
     private IEnumerator GC()

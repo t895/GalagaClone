@@ -7,23 +7,23 @@ public class PowerupStatus : MonoBehaviour
 {
     [SerializeField] private List<PowerupDefinition> powerups;
     private Image powerupIcon;
-    private Gun playerWeapon;
+    //private PlayerGun playerWeapon;
     private PowerupType pastPowerup;
 
-    void Start()
+    private void Start()
     {
         powerupIcon = GetComponent<Image>();
-        playerWeapon = GameObject.FindWithTag("Player").GetComponent<Gun>();
-        pastPowerup = playerWeapon.powerupType;
+        //playerWeapon = GameObject.FindWithTag("Player").GetComponent<PlayerGun>();
+        pastPowerup = PlayerVariables.playerGun.powerupType;
 
     }
 
-    void Update()
+    private void Update()
     {
-        if(playerWeapon.powerupType != pastPowerup)
+        if(PlayerVariables.playerGun.powerupType != pastPowerup)
         {
-            powerupIcon.sprite = FindIcon(playerWeapon.powerupType);
-            pastPowerup = playerWeapon.powerupType;
+            powerupIcon.sprite = FindIcon(PlayerVariables.playerGun.powerupType);
+            pastPowerup = PlayerVariables.playerGun.powerupType;
         }
             
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class PlayerGun : MonoBehaviour
 {
     public GameObject defaultBullet;
     public float fireRate = 1f;
@@ -22,7 +22,12 @@ public class Gun : MonoBehaviour
     private float customRate = 0;
     private AudioClip currentSound;
 
-    void Start()
+    private void Awake()
+    {
+        PlayerVariables.playerGun = this;
+    }
+
+    private void Start()
     {
         player = GetComponent<PlayerManager>();
         controller = GetComponent<PlayerController>();
@@ -31,11 +36,22 @@ public class Gun : MonoBehaviour
         currentBullet = defaultBullet;
     }
 
-    void Update()
+    private void Update()
     {
+        float shotInput = PlayerVariables.playerControls.InGame.Shoot.ReadValue<float>();
+
         if(!GameState.paused && player.isAlive)
         {
-            if(Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire) 
+            if(shotInput == 1)
+                AttemptShot();
+                
+            PlayerVariables.playerControls.InGame.ClearPowerup.performed += cxt => RemovePowerupManual();
+        }
+    }
+
+    private void AttemptShot()
+    {
+        if(Time.time > nextFire)
             {
                 if(customRate == 0)
                 {
@@ -48,10 +64,12 @@ public class Gun : MonoBehaviour
                     PickShot();
                 }
             }
+    }
 
-            if(Input.GetKeyDown(KeyCode.F) && powerupType != PowerupType.none)
+    private void RemovePowerupManual()
+    {
+        if(powerupType != PowerupType.none)
                 DisablePowerup();
-        }
     }
 
     private void PickShot()
@@ -72,8 +90,8 @@ public class Gun : MonoBehaviour
     {
         for(int i = 0; i < powerupAudio.Count; i++)
         {
-            if(powerupAudio[i].Powerup == _powerupType && powerupAudio[i].Audio != null)
-                return powerupAudio[i].Audio;
+            if(powerupAudio[i].powerup == _powerupType && powerupAudio[i].audio != null)
+                return powerupAudio[i].audio;
         }
         return defaultShotSound;
     }
@@ -144,10 +162,10 @@ public class Gun : MonoBehaviour
     private class PowerupAudio
     {
         [SerializeField] private string name;
-        [SerializeField] private PowerupType powerupType;
-        [SerializeField] private AudioClip powerupAudio;
+        public PowerupType powerup;
+        public AudioClip audio;
 
-        public PowerupType Powerup { get { return powerupType; } }
-        public AudioClip Audio { get { return powerupAudio; } }
+        //public PowerupType Powerup { get { return powerupType; } }
+        //public AudioClip Audio { get { return powerupAudio; } }
     }
 }

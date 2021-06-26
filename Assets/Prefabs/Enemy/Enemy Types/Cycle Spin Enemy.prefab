@@ -235,8 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToNextShot: 0.1
-  damage: 5
-  speed: 2
+  damage: 10
+  speed: 5
   shotSound: {fileID: 8300000, guid: acfe19050e591024d82996886c7ed00e, type: 3}
   bulletTypes:
   - EnemyBullet

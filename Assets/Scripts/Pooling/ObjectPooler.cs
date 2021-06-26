@@ -7,7 +7,7 @@ In all honesty, adding this pooling system is overengineering
 especially for such a low memory game like this. Thought 
 it would be cool though and help out when the game still
 somehow decides to dip below 144 fps. My biggest flaw here was
-naively not checking the profiler before diving into this.
+not checking the profiler before diving into this (like an idiot).
 Hopefully this doesn't cause any serious issues in the future...
 **/
 

@@ -17,10 +17,10 @@ public class FPSDebug : MonoBehaviour
 		deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         Application.targetFrameRate = fpsTarget;
 
-        if(Input.GetKey(KeyCode.KeypadPlus))
+        /*if(Input.GetKey(KeyCode.KeypadPlus))
             fpsTarget++;
         if(Input.GetKey(KeyCode.KeypadMinus))
-            fpsTarget--;
+            fpsTarget--;*/
 	}
  
 	void OnGUI()

@@ -20,19 +20,23 @@ public class InGameUI : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(StateName(GameState.currentState));
-
         if(GameState.currentState == GameState.LevelStatus.levelFailed && !gameOverUI.activeSelf)
             GameOver();
 
         if(GameState.currentState == GameState.LevelStatus.levelComplete && !victoryUI.activeSelf)
             Victory();
 
+        PlayerVariables.playerControls.InGame.Pause.performed += cxt => ChangePauseState();
+    }
+
+    private void ChangePauseState()
+    {
+        Debug.Log(StateName(GameState.currentState));
         if(GameState.currentState == GameState.LevelStatus.levelInProgress)
         {
-            if(Input.GetKeyDown(KeyCode.Escape) && !GameState.paused)
+            if(!GameState.paused)
                 Pause();
-            else if(Input.GetKeyDown(KeyCode.Escape))
+            else
                 UnPause();
         }
     }
@@ -71,7 +75,6 @@ public class InGameUI : MonoBehaviour
     void GameOver()
     {
         enableOne(gameOverUI);
-        //GameState.paused = true;
         Time.timeScale = 0f;
     }
 

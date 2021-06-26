@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-[System.Serializable]
 public static class PlayerVariables
 {
-    public static PlayerManager player;
+    public static PlayerManager playerManager;
+    public static PlayerController playerController;
+    public static PlayerControls playerControls;
+    public static PlayerGun playerGun;
+    public static PlayerMelee playerMelee;
+    public static CameraShake cameraShake;
     public static float playerHealAmount = 0.3f;
     public static float playerMultiplyer = 0f;
 }
@@ -24,33 +28,28 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private AudioClip explosionClip;
     [SerializeField] private AudioClip hitClip;
 
-    [SerializeField] private float healingReduction = 0.05f;
-    [SerializeField] private float healingIncrease = 0.075f;
-
     [SerializeField] private int multiplyerDecayTime = 1;
     [SerializeField] private float multiplyerDecay = 0.5f;
 
     private CircleCollider2D hitbox;
-    private PlayerController controller;
     private AudioSource audioPlayer;
 
-    void Awake()
+    private void Awake()
     {
-        PlayerVariables.player = this;
+        PlayerVariables.playerManager = this;
     }
 
-    void Start()
+    private void Start()
     {
         health = maxHealth;
         meleePower = maxMeleePower;
         hitbox = GetComponent<CircleCollider2D>();
-        controller = GetComponent<PlayerController>();
         audioPlayer = GetComponent<AudioSource>();
         meleeRechargeRate *= Time.deltaTime;
 
         StartCoroutine(MultiplyerReduction(multiplyerDecayTime, multiplyerDecay));
     }
-    void Update()
+    private void Update()
     {
         if(!GameState.paused)
         {
@@ -68,7 +67,7 @@ public class PlayerManager : MonoBehaviour
         {
             audioPlayer.PlayOneShot(hitClip);
             health -= _damage;
-            StartCoroutine(controller.cameraShake.Shake(controller.shakeDuration, controller.shakeMagnitude));
+            StartCoroutine(PlayerVariables.cameraShake.Shake(PlayerVariables.playerController.shakeDuration, PlayerVariables.playerController.shakeMagnitude));
             if(health <= 0 && isAlive)
                 Die();
         }
@@ -87,19 +86,12 @@ public class PlayerManager : MonoBehaviour
         Heal(PlayerVariables.playerHealAmount * PlayerVariables.playerMultiplyer);
     }
 
-    public void IncreaseHealingMultiplyer(float _amount)
+    public void IncreaseMultiplyer(float _amount)
     {
-        if(_amount != 0)
-            if((PlayerVariables.playerMultiplyer + _amount) > 0)
-                PlayerVariables.playerMultiplyer += _amount;
+        if(_amount > 0)
+            PlayerVariables.playerMultiplyer += _amount;
         else
-            PlayerVariables.playerMultiplyer += healingIncrease;
-    }
-
-    public void ReduceHealingMultiplyer()
-    {
-        if((PlayerVariables.playerMultiplyer - healingReduction) > 0)
-            PlayerVariables.playerMultiplyer -= healingReduction;
+            Debug.LogWarning("Tried to increase multiplyer with a negative number! - " + _amount);
     }
 
     private IEnumerator MultiplyerReduction(int _multiplyerDecayTime, float _multiplyerDecay)

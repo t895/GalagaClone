@@ -19,7 +19,7 @@ public class WeaponPowerup : MonoBehaviour
     private SpriteRenderer sprite;
     private BoxCollider2D hitbox;
 
-    void Start()
+    private void Start()
     {
         audioPlayer = GetComponent<AudioSource>();
         pickupAnimation = GetComponent<ParticleSystem>();
@@ -28,19 +28,19 @@ public class WeaponPowerup : MonoBehaviour
         StartCoroutine(WaitForDespawn());
     }
 
-    void OnTriggerEnter2D(Collider2D _collider) 
+    private void OnTriggerEnter2D(Collider2D _collider) 
     {
-        if(_collider.GetComponent<Gun>() != null)
-            Take(_collider.GetComponent<Gun>());
+        if(_collider.GetComponent<PlayerGun>() != null)
+            Take(_collider.GetComponent<PlayerGun>());
     }
 
-    void Take(Gun _gun)
+    private void Take(PlayerGun _gun)
     {
         _gun.PowerupTaken(powerupType, powerupDuration, customBullet, customRate);
         Despawn(pickupClip);
     }
 
-    void Despawn(AudioClip _clip)
+    private void Despawn(AudioClip _clip)
     {
         audioPlayer.PlayOneShot(_clip);
         pickupAnimation.Play();

@@ -8,8 +8,8 @@ public class EnergyBarrier : MonoBehaviour
 {
     [SerializeField] private BarrierType barrier;
 
-    public Vector3 defaultSize = Vector3.zero;
-    public Vector3 customSize = Vector3.zero;
+    private Vector3 defaultSize = Vector3.zero;
+    private Vector3 customSize = Vector3.zero;
 
     [SerializeField] private float turnSpeed;
     [SerializeField] private float moveSpeed;
@@ -28,10 +28,9 @@ public class EnergyBarrier : MonoBehaviour
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        
         sprite.enabled = false;
-
         defaultSize = gameObject.transform.localScale;
-        damage *= Time.deltaTime;   
     }
 
     public void Initialize(List<Transform> _positions, Vector3 _size)
@@ -73,7 +72,7 @@ public class EnergyBarrier : MonoBehaviour
         if(_player != null)
         {
             if(_player.canTakeDamage)
-                _player.TakeDamage(damage);
+                _player.TakeDamage(damage * Time.deltaTime);
         }
     }
 
