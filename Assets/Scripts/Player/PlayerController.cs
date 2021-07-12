@@ -30,10 +30,10 @@ public class PlayerController : MonoBehaviour
     #region InitializeControls
     private void Awake()
     {
-        
         playerControls = new PlayerControls();
-        PlayerVariables.playerController = this;
         PlayerVariables.playerControls = playerControls;
+
+        PlayerVariables.playerController = this; 
     }
 
     private void OnEnable()
@@ -49,16 +49,17 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        playerControls.InGame.Melee.performed += cxt => AttemptMelee();
+        playerControls.InGame.Move.performed += cxt => movementInput = cxt.ReadValue<Vector2>();
+        playerControls.InGame.Look.performed += cxt => lookInput = cxt.ReadValue<Vector2>();
+        playerControls.InGame.Dodge.performed += cxt => dodgeInput = cxt.ReadValue<float>();
+
         rb = GetComponent<Rigidbody2D>();
         audioPlayer = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        movementInput = playerControls.InGame.Move.ReadValue<Vector2>();
-        lookInput = playerControls.InGame.Look.ReadValue<Vector2>();
-        dodgeInput = playerControls.InGame.Dodge.ReadValue<float>();
-
         if(PlayerVariables.playerManager.isAlive && !GameState.paused) 
         {
             if((movementInput.magnitude > 0 && dodgeInput == 1) || Time.time < dodgeTime) 
@@ -73,9 +74,7 @@ public class PlayerController : MonoBehaviour
             {
                 PlayerVariables.playerManager.canTakeDamage = true;
             }
-
-            playerControls.InGame.Melee.performed += cxt => AttemptDodge();
-
+            
             if(Time.time > dodgeTime)
                 Move(movementInput);
 
@@ -98,7 +97,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = SpeedRelativeToCamera(moveVelocity);
     }
 
-    private void AttemptDodge()
+    private void AttemptMelee()
     {
         if(Time.time > dodgeTime && PlayerVariables.playerManager.meleePower == 100f) 
         {

@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     public float health;
     public bool isAlive = true;
     public bool canTakeDamage = true;
+    public bool invincible = false;
     [SerializeField] private AudioClip explosionClip;
     [SerializeField] private AudioClip hitClip;
 
@@ -46,6 +47,7 @@ public class PlayerManager : MonoBehaviour
         hitbox = GetComponent<CircleCollider2D>();
         audioPlayer = GetComponent<AudioSource>();
         meleeRechargeRate *= Time.deltaTime;
+        PlayerVariables.playerMultiplyer = 0f;
 
         StartCoroutine(MultiplyerReduction(multiplyerDecayTime, multiplyerDecay));
     }
@@ -63,7 +65,7 @@ public class PlayerManager : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
-        if(canTakeDamage)
+        if(canTakeDamage && !invincible)
         {
             audioPlayer.PlayOneShot(hitClip);
             health -= _damage;
