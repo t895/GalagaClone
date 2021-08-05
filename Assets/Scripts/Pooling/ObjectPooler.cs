@@ -13,9 +13,10 @@ Hopefully this doesn't cause any serious issues in the future...
 
 public enum PooledObject 
 { 
-    Bullet, 
+    EnemyBullet, 
     BulletExplosion, 
-    EnemyDeathExplosion
+    EnemyDeathExplosion,
+    PlayerBullet
 }
 
 public class ObjectPooler : MonoBehaviour

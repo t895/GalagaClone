@@ -6,13 +6,10 @@ public enum PowerupType { none, bigBullets, tripleShot, octaShot };
 
 public class WeaponPowerup : MonoBehaviour
 {
-    [SerializeField] private PowerupType powerupType;
-    [SerializeField] private int powerupDuration;
-    [SerializeField] private GameObject customBullet;
-    [SerializeField] private float customRate;
+    [SerializeField] private BulletObject customBullet;
     [SerializeField] private float timeToDespawn;
-    public AudioClip pickupClip;
-    public AudioClip despawnClip;
+    [SerializeField] private AudioClip pickupClip;
+    [SerializeField] private AudioClip despawnClip;
 
     private AudioSource audioPlayer;
     private ParticleSystem pickupAnimation;
@@ -36,7 +33,7 @@ public class WeaponPowerup : MonoBehaviour
 
     private void Take(PlayerGun _gun)
     {
-        _gun.PowerupTaken(powerupType, powerupDuration, customBullet, customRate);
+        _gun.PowerupTaken(customBullet);
         Despawn(pickupClip);
     }
 

@@ -882,6 +882,10 @@ MonoBehaviour:
     prefab: {fileID: 4273821731572744069, guid: c4f05a3f0fa9a89419bb5c2ba108529f,
       type: 3}
     size: 5
+  - tag: 3
+    prefab: {fileID: 8612078428502151096, guid: c3e6c24475be6a647837f8c21ca0f26a,
+      type: 3}
+    size: 50
 --- !u!4 &304358344
 Transform:
   m_ObjectHideFlags: 0
@@ -4834,18 +4838,6 @@ Transform:
   m_Father: {fileID: 1280294920}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1796329520 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5233595213748649613, guid: dbff8490033aa5f448ea82a95014dccf,
-    type: 3}
-  m_PrefabInstance: {fileID: 5233595213772108364}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a8a2c457c8d4e459c4aae99e6ddf05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1806913948
 GameObject:
   m_ObjectHideFlags: 0
@@ -5616,16 +5608,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3119967518723326976, guid: dbff8490033aa5f448ea82a95014dccf,
+    - target: {fileID: 5233595213772108366, guid: dbff8490033aa5f448ea82a95014dccf,
         type: 3}
-      propertyPath: invincible
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5233595213748649613, guid: dbff8490033aa5f448ea82a95014dccf,
-        type: 3}
-      propertyPath: input
+      propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 5233595213772108366}
+      objectReference: {fileID: 519420031}
     - target: {fileID: 5233595214263946708, guid: dbff8490033aa5f448ea82a95014dccf,
         type: 3}
       propertyPath: m_RootOrder
@@ -5686,6 +5673,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5233595214263946714, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: defaultBullet
+      value: 
+      objectReference: {fileID: 11400000, guid: 34a1460585cdd8642a1d9884951690cc,
+        type: 2}
     - target: {fileID: 5233595214263946715, guid: dbff8490033aa5f448ea82a95014dccf,
         type: 3}
       propertyPath: mainCamera
@@ -5693,81 +5686,3 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbff8490033aa5f448ea82a95014dccf, type: 3}
---- !u!1 &5233595213772108365 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5233595214263946713, guid: dbff8490033aa5f448ea82a95014dccf,
-    type: 3}
-  m_PrefabInstance: {fileID: 5233595213772108364}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5233595213772108366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5233595213772108365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: c5c1cda7447ed394a8b1258a846f06cc,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1796329520}
-        m_TargetAssemblyTypeName: Pivot, Assembly-CSharp
-        m_MethodName: InputChangeHandler
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 5233595213772108366}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.InputSystem.PlayerInput,
-            Unity.InputSystem
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 972858cc-6444-4fdb-8ec4-e6e98d1a59f2
-    m_ActionName: InGame/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7364bac3-795b-4aeb-a84d-17e12e0c1e3c
-    m_ActionName: InGame/Dodge[/Keyboard/space,/XInputControllerWindows/rightTrigger]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0ccee34d-4100-49fa-99bb-4ed255493079
-    m_ActionName: InGame/Shoot[/Mouse/leftButton,/XInputControllerWindows/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d90f3d89-422c-4721-893e-11748e501aba
-    m_ActionName: InGame/Look[/Mouse/position,/XInputControllerWindows/rightStick]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 08e3e6ee-b22c-4f8d-ae66-a75b77daf1ac
-    m_ActionName: InGame/Melee[/Mouse/rightButton,/XInputControllerWindows/leftTrigger]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6c933932-b45c-441a-9111-7cb8d357b436
-    m_ActionName: InGame/ClearPowerup[/Keyboard/f,/XInputControllerWindows/buttonEast]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2b1906de-cef0-47da-ab66-e69252d21848
-    m_ActionName: InGame/Pause[/Keyboard/escape,/XInputControllerWindows/start]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: InGame
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 519420031}

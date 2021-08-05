@@ -40,7 +40,9 @@ public class Enemy : MonoBehaviour
         isDead = true;
         hitbox.enabled = false;
         audioPlayer.PlayOneShot(explosionClip);
-        GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
+        //GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
+        ObjectPooler.Instance
+            .SpawnFromPool(PooledObject.EnemyDeathExplosion, gameObject.transform.position, gameObject.transform.rotation);
         if(randomDropsEnabled)
             Drop();
         PlayerVariables.playerManager.IncreaseMultiplyer(multiplyerIncrease);

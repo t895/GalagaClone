@@ -4,23 +4,16 @@ using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
 {
-    public GameObject defaultBullet;
-    public float fireRate = 1f;
-    public PowerupType powerupType;
-    [SerializeField] private AudioClip defaultShotSound;
     [SerializeField] private AudioClip disablePowerupSound;
-    [SerializeField] private List<PowerupAudio> powerupAudio;
-    private AudioSource audioPlayer;
     
     [SerializeField] private List<Transform> baseShotOrigins;
     [SerializeField] private List<Transform> octaShotOrigins;
     private float nextFire = 0f;
-    private PlayerManager player;
-    private PlayerController controller;
-    
-    private GameObject currentBullet;
-    private float customRate = 0;
-    private AudioClip currentSound;
+
+    public BulletObject defaultBullet;
+    public BulletObject currentBullet;
+
+    private AudioSource audioPlayer;
 
     private void Awake()
     {
@@ -29,71 +22,46 @@ public class PlayerGun : MonoBehaviour
 
     private void Start()
     {
-        player = GetComponent<PlayerManager>();
-        controller = GetComponent<PlayerController>();
         audioPlayer = GetComponent<AudioSource>();
-        currentSound = defaultShotSound;
         currentBullet = defaultBullet;
 
-        PlayerVariables.playerControls.InGame.ClearPowerup.performed += cxt => RemovePowerupManual();
+        PlayerVariables.playerControls.InGame.ClearPowerup.performed += cxt => DisablePowerup();
     }
 
     private void Update()
     {
         float shotInput = PlayerVariables.playerControls.InGame.Shoot.ReadValue<float>();
 
-        if(!GameState.paused && player.isAlive)
-        {
+        if(!GameState.paused && PlayerVariables.playerManager.isAlive)
             if(shotInput == 1)
                 AttemptShot();
-        }
     }
 
     private void AttemptShot()
     {
         if(Time.time > nextFire)
-            {
-                if(customRate == 0)
-                {
-                    nextFire = Time.time + fireRate;
-                    PickShot();
-                }
-                else
-                {
-                    nextFire = Time.time + customRate;
-                    PickShot();
-                }
-            }
-    }
+        {
+            if(currentBullet.fireRate == defaultBullet.fireRate)
+                nextFire = Time.time + defaultBullet.fireRate;
+            else
+                nextFire = Time.time + currentBullet.fireRate;
 
-    private void RemovePowerupManual()
-    {
-        if(powerupType != PowerupType.none && !GameState.paused && player.isAlive)
-                DisablePowerup();
+            PickShot();
+        }
     }
 
     private void PickShot()
     {
-        if(powerupType == PowerupType.none)
+        if(currentBullet.powerupType == PowerupType.none)
             Shoot();
-        else if (powerupType == PowerupType.bigBullets)
+        else if (currentBullet.powerupType == PowerupType.bigBullets)
             BigShot();
-        else if (powerupType == PowerupType.tripleShot)
+        else if (currentBullet.powerupType == PowerupType.tripleShot)
             TripleShot();
-        else if (powerupType == PowerupType.octaShot)
+        else if (currentBullet.powerupType == PowerupType.octaShot)
             OctaShot();
 
-        audioPlayer.PlayOneShot(currentSound);
-    }
-
-    private AudioClip FindAudio(PowerupType _powerupType)
-    {
-        for(int i = 0; i < powerupAudio.Count; i++)
-        {
-            if(powerupAudio[i].powerup == _powerupType && powerupAudio[i].audio != null)
-                return powerupAudio[i].audio;
-        }
-        return defaultShotSound;
+        audioPlayer.PlayOneShot(currentBullet.audio);
     }
 
     private IEnumerator PowerupTimeout(float _time)
@@ -102,50 +70,45 @@ public class PlayerGun : MonoBehaviour
         DisablePowerup();
     }
 
-    public void PowerupTaken(PowerupType _powerupType, int _powerupDuration, GameObject _customBullet, float _customRate)
+    public void PowerupTaken(BulletObject _customBullet)
     {
+        currentBullet = _customBullet;
         StopAllCoroutines();
-        StartCoroutine(PowerupTimeout(_powerupDuration));
-        powerupType = _powerupType;
-
-        if(_customBullet != null)
-            currentBullet = _customBullet;
-        else
-            currentBullet = defaultBullet;
-
-        if(_customRate != 0)
-            customRate = _customRate;
-        else
-            customRate = 0;
-
-        currentSound = FindAudio(powerupType);
+        StartCoroutine(PowerupTimeout(currentBullet.powerupDuration));
     }
 
     private void DisablePowerup()
     {
-        powerupType = PowerupType.none;
-        currentBullet = defaultBullet;
-        customRate = 0;
-        currentSound = defaultShotSound;
-        audioPlayer.PlayOneShot(disablePowerupSound);
+        if(currentBullet.powerupType != PowerupType.none && !GameState.paused && PlayerVariables.playerManager.isAlive)
+        {
+            currentBullet = defaultBullet;
+            audioPlayer.PlayOneShot(disablePowerupSound);
+        }
     }
 
+    //TODO: Find a way to avoid this
     #region ShotTypes
     private void Shoot()
     {
-        GameObject liveBullet = Instantiate(currentBullet, baseShotOrigins[0]);
+        ObjectPooler.Instance
+            .SpawnFromPool(currentBullet.pooledObject, baseShotOrigins[0].position, baseShotOrigins[0].rotation)
+            .GetComponent<Bullet>().Initialize(currentBullet);
     }
 
     private void BigShot()
     {
-        GameObject liveBullet = Instantiate(currentBullet, baseShotOrigins[0]);
+        ObjectPooler.Instance
+            .SpawnFromPool(currentBullet.pooledObject, baseShotOrigins[0].position, baseShotOrigins[0].rotation)
+            .GetComponent<Bullet>().Initialize(currentBullet);
     }
 
     private void TripleShot()
     {
         for(int i = 0; i <= 2; i++) 
         {
-            GameObject liveBullet = Instantiate(currentBullet, baseShotOrigins[i]);
+            ObjectPooler.Instance
+                .SpawnFromPool(currentBullet.pooledObject, baseShotOrigins[i].position, baseShotOrigins[i].rotation)
+                .GetComponent<Bullet>().Initialize(currentBullet);
         }
     }
 
@@ -153,19 +116,10 @@ public class PlayerGun : MonoBehaviour
     {
         for(int i = 0; i < octaShotOrigins.Count; i++) 
         {
-            GameObject liveBullet = Instantiate(currentBullet, octaShotOrigins[i]);
+            ObjectPooler.Instance
+                .SpawnFromPool(currentBullet.pooledObject, octaShotOrigins[i].position, octaShotOrigins[i].rotation)
+                .GetComponent<Bullet>().Initialize(currentBullet);
         }
     }
     #endregion
-
-    [System.Serializable]
-    private class PowerupAudio
-    {
-        [SerializeField] private string name;
-        public PowerupType powerup;
-        public AudioClip audio;
-
-        //public PowerupType Powerup { get { return powerupType; } }
-        //public AudioClip Audio { get { return powerupAudio; } }
-    }
 }

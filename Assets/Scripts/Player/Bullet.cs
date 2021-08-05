@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 20f;
-    [SerializeField] private float damage = 10f;
-    [SerializeField] private int collisions = 1;
-    [SerializeField] private float timeToDestroy;
-    [SerializeField] private bool canDestroyIndestructableBullets = false;
+    public BulletObject bullet;
+    private int collisions;
 
     private Rigidbody2D body;
-    private SpriteRenderer sprite;
+    private SpriteRenderer spriteRenderer;
     
-    private void Start()
+    private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        sprite = GetComponent<SpriteRenderer>();
-        transform.parent = null;
-        body.velocity = transform.right * speed;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void Initialize(BulletObject _bullet)
+    {
+        bullet                          = _bullet;
+        collisions                      = bullet.collisions;
+        gameObject.transform.localScale = bullet.size;
+        spriteRenderer.sprite           = bullet.sprite;
+        spriteRenderer.color            = bullet.color;
+        spriteRenderer.enabled          = true;
+        body.velocity                   = transform.right * bullet.speed;
+
         StartCoroutine(GC());
-        if(canDestroyIndestructableBullets)
+        //Crappy hardcoded values to ignore collision
+        if(bullet.canDestroyIndestructableBullets)
             Physics2D.IgnoreLayerCollision(8, 12, false);
         else
             Physics2D.IgnoreLayerCollision(8, 12, true);
@@ -36,7 +44,7 @@ public class Bullet : MonoBehaviour
             ObjectPooler.Instance
                 .SpawnFromPool(PooledObject.BulletExplosion, gameObject.transform.position, gameObject.transform.rotation);
             if(_enemy != null)
-                _enemy.TakeDamage(damage);
+                _enemy.TakeDamage(bullet.damage);
 
             if(_bullet != null)
                 PlayerVariables.playerManager.HealWithMultiplyer();
@@ -50,16 +58,17 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator GC()
     {
-        yield return new WaitForSeconds(timeToDestroy);
+        yield return new WaitForSeconds(bullet.timeToDestroy);
         Explode(false);
     }
 
     private void Explode(bool _playAudio)
     {
-        sprite.enabled = false;
+        spriteRenderer.enabled = false;
         body.velocity = Vector2.zero;
         ObjectPooler.Instance
             .SpawnFromPool(PooledObject.BulletExplosion, gameObject.transform.position, gameObject.transform.rotation);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
+
 }

@@ -16,13 +16,15 @@ public class ParticleController : MonoBehaviour, IPooledObject
 
     void Update()
     {
-        if(!(particles.isPlaying && audioSource.isPlaying))
-            gameObject.SetActive(false);
+        if(hitClip != null)
+            if(!(particles.isPlaying && audioSource.isPlaying))
+                gameObject.SetActive(false);
     }
 
     public void OnObjectSpawn()
     {
-        audioSource.PlayOneShot(hitClip);
+        if(hitClip != null)
+            audioSource.PlayOneShot(hitClip);
         particles.Play();
     }
 }

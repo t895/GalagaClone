@@ -42,7 +42,7 @@ public class EnemyWeapon : MonoBehaviour
     {
         audioPlayer.PlayOneShot(shotSound);
         ObjectPooler.Instance
-            .SpawnFromPool(PooledObject.Bullet, shotSources[_positionIndex].position, shotSources[_positionIndex].rotation)
+            .SpawnFromPool(PooledObject.EnemyBullet, shotSources[_positionIndex].position, shotSources[_positionIndex].rotation)
             .GetComponent<EnemyBullet>().Initialize(bulletTypes[_typeIndex], _damage, _speed);
     }
 }
