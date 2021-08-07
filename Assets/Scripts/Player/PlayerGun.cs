@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class PlayerGun : MonoBehaviour
 {
-    [SerializeField] private AudioClip disablePowerupSound;
-    
     [SerializeField] private List<Transform> baseShotOrigins;
     [SerializeField] private List<Transform> octaShotOrigins;
     private float nextFire = 0f;
 
-    public BulletObject defaultBullet;
-    public BulletObject currentBullet;
+    public PlayerBulletObject defaultBullet;
+    public PlayerBulletObject currentBullet;
 
     private AudioSource audioPlayer;
+    [SerializeField] private AudioClip disablePowerupSound;
 
     private void Awake()
     {
@@ -52,14 +51,12 @@ public class PlayerGun : MonoBehaviour
 
     private void PickShot()
     {
-        if(currentBullet.powerupType == PowerupType.none)
-            Shoot();
-        else if (currentBullet.powerupType == PowerupType.bigBullets)
-            BigShot();
-        else if (currentBullet.powerupType == PowerupType.tripleShot)
+        if (currentBullet.powerupType == PowerupType.tripleShot)
             TripleShot();
         else if (currentBullet.powerupType == PowerupType.octaShot)
             OctaShot();
+        else
+            Shoot();
 
         audioPlayer.PlayOneShot(currentBullet.audio);
     }
@@ -70,7 +67,7 @@ public class PlayerGun : MonoBehaviour
         DisablePowerup();
     }
 
-    public void PowerupTaken(BulletObject _customBullet)
+    public void PowerupTaken(PlayerBulletObject _customBullet)
     {
         currentBullet = _customBullet;
         StopAllCoroutines();
@@ -89,13 +86,6 @@ public class PlayerGun : MonoBehaviour
     //TODO: Find a way to avoid this
     #region ShotTypes
     private void Shoot()
-    {
-        ObjectPooler.Instance
-            .SpawnFromPool(currentBullet.pooledObject, baseShotOrigins[0].position, baseShotOrigins[0].rotation)
-            .GetComponent<Bullet>().Initialize(currentBullet);
-    }
-
-    private void BigShot()
     {
         ObjectPooler.Instance
             .SpawnFromPool(currentBullet.pooledObject, baseShotOrigins[0].position, baseShotOrigins[0].rotation)

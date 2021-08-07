@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour
         isDead = true;
         hitbox.enabled = false;
         audioPlayer.PlayOneShot(explosionClip);
-        //GameObject explosion = Instantiate(deathExplosion, transform.position, transform.rotation);
         ObjectPooler.Instance
             .SpawnFromPool(PooledObject.EnemyDeathExplosion, gameObject.transform.position, gameObject.transform.rotation);
         if(randomDropsEnabled)

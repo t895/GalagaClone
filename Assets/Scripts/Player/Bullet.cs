@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public BulletObject bullet;
+    public PlayerBulletObject bullet;
     private int collisions;
 
     private Rigidbody2D body;
@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Initialize(BulletObject _bullet)
+    public void Initialize(PlayerBulletObject _bullet)
     {
         bullet                          = _bullet;
         collisions                      = bullet.collisions;
@@ -26,12 +26,13 @@ public class Bullet : MonoBehaviour
         spriteRenderer.enabled          = true;
         body.velocity                   = transform.right * bullet.speed;
 
-        StartCoroutine(GC());
         //Crappy hardcoded values to ignore collision
         if(bullet.canDestroyIndestructableBullets)
             Physics2D.IgnoreLayerCollision(8, 12, false);
         else
             Physics2D.IgnoreLayerCollision(8, 12, true);
+
+        StartCoroutine(GC());
     }
 
     private void OnTriggerEnter2D(Collider2D _object)

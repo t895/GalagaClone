@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Bullet", menuName = "Bullet")]
-public class BulletObject : ScriptableObject
+[CreateAssetMenu(fileName = "New Bullet", menuName = "Player Bullet")]
+public class PlayerBulletObject : ScriptableObject
 {
     public new string name;
 
@@ -25,5 +25,4 @@ public class BulletObject : ScriptableObject
     public PooledObject pooledObject;
     public PowerupType powerupType;
     public Sprite icon;
-    
 }

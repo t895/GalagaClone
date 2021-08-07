@@ -19,7 +19,6 @@ public class EnemyBullet : MonoBehaviour
     private float speed;
 
     private Coroutine gc;
-    private Coroutine finishParticles;
 
     private void Awake()
     {
@@ -33,15 +32,11 @@ public class EnemyBullet : MonoBehaviour
     public void Initialize(string _tag,  float _damage, float _speed)
     {
         if(_tag.Equals("EnemyBullet"))
-        {
             spriteRenderer.color = destructibleSpriteColor;
-            gameObject.layer = LayerMask.NameToLayer(_tag);
-        }
         else if(_tag.Equals("IEnemyBullet"))
-        {
             spriteRenderer.color = indestructibleSpriteColor;
-            gameObject.layer = LayerMask.NameToLayer(_tag);
-        }
+            
+        gameObject.layer = LayerMask.NameToLayer(_tag);
 
         if(gc != null)
             StopCoroutine(gc);
@@ -59,11 +54,9 @@ public class EnemyBullet : MonoBehaviour
         PlayerManager _player = _object.GetComponent<PlayerManager>();
         PlayerMelee _melee = _object.GetComponent<PlayerMelee>();
 
-        if(_player != null)
-        {
-            if(_player.canTakeDamage)
-                _player.TakeDamage(damage);
-        }
+        if(_player != null && _player.canTakeDamage)
+            _player.TakeDamage(damage);
+
         Explode();
 
         if(_melee != null)

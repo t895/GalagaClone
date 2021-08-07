@@ -6,7 +6,7 @@ public enum PowerupType { none, bigBullets, tripleShot, octaShot };
 
 public class WeaponPowerup : MonoBehaviour
 {
-    [SerializeField] private BulletObject customBullet;
+    [SerializeField] private PlayerBulletObject customBullet;
     [SerializeField] private float timeToDespawn;
     [SerializeField] private AudioClip pickupClip;
     [SerializeField] private AudioClip despawnClip;
