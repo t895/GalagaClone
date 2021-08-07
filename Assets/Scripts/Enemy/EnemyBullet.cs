@@ -4,49 +4,40 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    public float autoExplodeTime;
-    [SerializeField] private AudioClip hitClip;
-    private Rigidbody2D body;
-
-    public Color indestructibleSpriteColor;
-    public Color destructibleSpriteColor;
-    private SpriteRenderer spriteRenderer;
-    
-    private AudioSource audioSource;
-    private Collider2D hitbox;
-
+    private EnemyBulletObject bullet;
     private float damage;
     private float speed;
+
+    private Rigidbody2D body;
+    private SpriteRenderer spriteRenderer;
+    private Collider2D hitbox;
 
     private Coroutine gc;
 
     private void Awake()
     {
-        body = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>();
-        hitbox = GetComponent<Collider2D>();
-        transform.parent = null;
+        body                = GetComponent<Rigidbody2D>();
+        spriteRenderer      = GetComponent<SpriteRenderer>();
+        hitbox              = GetComponent<Collider2D>();
+        transform.parent    = null;
     }
 
-    public void Initialize(string _tag,  float _damage, float _speed)
+    public void Initialize(EnemyBulletObject _bullet,  float _damage, float _speed)
     {
-        if(_tag.Equals("EnemyBullet"))
-            spriteRenderer.color = destructibleSpriteColor;
-        else if(_tag.Equals("IEnemyBullet"))
-            spriteRenderer.color = indestructibleSpriteColor;
-            
-        gameObject.layer = LayerMask.NameToLayer(_tag);
+        bullet = _bullet;
+
+        spriteRenderer.sprite   = bullet.sprite;
+        spriteRenderer.color    = bullet.color;
+        damage                  = _damage;
+        speed                   = _speed;
+        body.velocity           = transform.up * speed;
+        spriteRenderer.enabled  = true;
+        gameObject.layer        = LayerMask.NameToLayer(bullet.bulletType.ToString());
+        hitbox.enabled          = true;
 
         if(gc != null)
             StopCoroutine(gc);
         gc = StartCoroutine(GC());
-
-        damage = _damage;
-        speed = _speed;
-        body.velocity = transform.up * speed;
-        spriteRenderer.enabled = true;
-        hitbox.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D _object)
@@ -57,15 +48,15 @@ public class EnemyBullet : MonoBehaviour
         if(_player != null && _player.canTakeDamage)
             _player.TakeDamage(damage);
 
-        Explode();
-
         if(_melee != null)
             PlayerVariables.playerManager.HealWithMultiplyer();
+
+        Explode();
     }
 
     private IEnumerator GC()
     {
-        yield return new WaitForSeconds(autoExplodeTime);
+        yield return new WaitForSeconds(bullet.timeToDestroy);
         Explode();
     }
 

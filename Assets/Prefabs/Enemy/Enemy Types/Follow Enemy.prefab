@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 150
   health: 0
+  multiplyerIncrease: 0.25
   randomDropsEnabled: 0
   parent: {fileID: 6037343952182331552}
   deathExplosion: {fileID: 4273821731572744069, guid: c4f05a3f0fa9a89419bb5c2ba108529f,
@@ -174,7 +175,7 @@ MonoBehaviour:
   speed: 25
   shotSound: {fileID: 8300000, guid: acfe19050e591024d82996886c7ed00e, type: 3}
   bulletTypes:
-  - IEnemyBullet
+  - {fileID: 11400000, guid: 8c0722c7dde77124aa0f7664c72b0214, type: 2}
   shotSources:
   - {fileID: 6037343951427572997}
 --- !u!61 &6037343951812277167

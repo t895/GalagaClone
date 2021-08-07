@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BulletType { DestructibleEnemyBullet, IndestructibleEnemyBullet }
+
 [CreateAssetMenu(fileName = "New Bullet", menuName = "Enemy Bullet")]
 public class EnemyBulletObject : ScriptableObject
 {
@@ -11,8 +13,7 @@ public class EnemyBulletObject : ScriptableObject
     public Color color;
     public AudioClip audio;
     public PooledObject pooledObject;
+    public BulletType bulletType;
 
-    public float speed;
-    public float damage;
     public float timeToDestroy;
 }

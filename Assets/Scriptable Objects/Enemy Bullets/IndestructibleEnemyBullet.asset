@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a98c4a48b94a04896104eb76e0be99, type: 3}
+  m_Name: IndestructibleEnemyBullet
+  m_EditorClassIdentifier: 
+  name: IndestructibleEnemyBullet
+  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  color: {r: 1, g: 0, b: 0.8418155, a: 1}
+  audio: {fileID: 8300000, guid: 902e0b0796524bd45b7586b45eb3e774, type: 3}
+  pooledObject: 0
+  bulletType: 1
+  timeToDestroy: 7

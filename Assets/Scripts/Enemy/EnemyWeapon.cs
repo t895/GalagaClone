@@ -9,7 +9,7 @@ public class EnemyWeapon : MonoBehaviour
     public float speed;
     public AudioClip shotSound;
     private AudioSource audioPlayer;
-    public List<string> bulletTypes;
+    public List<EnemyBulletObject> bulletTypes;
     public List<Transform> shotSources;
 
     void Start()

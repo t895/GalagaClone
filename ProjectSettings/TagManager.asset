@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - PlayerBullet
-  - EnemyBullet
+  - DestructibleEnemyBullet
   - Player
   - Enemy
-  - IEnemyBullet
+  - IndestructibleEnemyBullet
   - Barrier
   - Pickup
   - 
