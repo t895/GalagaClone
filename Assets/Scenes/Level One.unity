@@ -874,12 +874,12 @@ MonoBehaviour:
     tag: 0
     prefab: {fileID: 8612078428502151096, guid: d2d2d54eebc1c03449f884d4384d38ec,
       type: 3}
-    size: 250
+    size: 300
   - name: Bullet Explosion
     tag: 1
     prefab: {fileID: 4273821731572744069, guid: 13820ebb413e0fb47b9bb1476fb57fb4,
       type: 3}
-    size: 100
+    size: 150
   - name: Enemy Death Explosion
     tag: 2
     prefab: {fileID: 4273821731572744069, guid: c4f05a3f0fa9a89419bb5c2ba108529f,

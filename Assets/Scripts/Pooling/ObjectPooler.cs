@@ -98,10 +98,10 @@ public class ObjectPooler : MonoBehaviour
         if(objectToSpawn == null)
             Debug.LogWarning("Object spawned from pool is null");
 
-        IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();
+        /*IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();
 
         if(pooledObj != null)
-            pooledObj.OnObjectSpawn();
+            pooledObj.OnObjectSpawn();*/
 
         return objectToSpawn;
     }

@@ -63,7 +63,7 @@ public class EnemyBullet : MonoBehaviour
     private void Explode()
     {
         ObjectPooler.Instance
-            .SpawnFromPool(PooledObject.BulletExplosion, gameObject.transform.position, gameObject.transform.rotation);
+            .SpawnFromPool(PooledObject.BulletExplosion, transform.position, transform.rotation);
         hitbox.enabled = false;
         spriteRenderer.enabled = false;
         body.velocity = Vector2.zero;

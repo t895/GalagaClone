@@ -65,10 +65,10 @@ public class Bullet : MonoBehaviour
 
     private void Explode(bool _playAudio)
     {
-        spriteRenderer.enabled = false;
-        body.velocity = Vector2.zero;
         ObjectPooler.Instance
             .SpawnFromPool(PooledObject.BulletExplosion, gameObject.transform.position, gameObject.transform.rotation);
+        spriteRenderer.enabled = false;
+        body.velocity = Vector2.zero;
         gameObject.SetActive(false);
     }
 
