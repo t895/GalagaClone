@@ -8,17 +8,20 @@ public class EnemyWeapon : MonoBehaviour
     public float damage;
     public float speed;
     public AudioClip shotSound;
-    private AudioSource audioPlayer;
+    public bool telegraphShot;
+    
     public List<EnemyBulletObject> bulletTypes;
     public List<Transform> shotSources;
 
-    void Start()
+    private AudioSource audioPlayer;
+
+    private void Start()
     {
         audioPlayer = GetComponent<AudioSource>();
         StartCoroutine(ShootLoop());
     }
 
-    IEnumerator ShootLoop()
+    private IEnumerator ShootLoop()
     {
         int _typeIndex = 0;
         int _typePosition = 0;
@@ -34,7 +37,11 @@ public class EnemyWeapon : MonoBehaviour
             if(_typePosition >= shotSources.Count)
                 _typePosition = 0;
 
-            yield return new WaitForSeconds(timeToNextShot);
+            yield return new WaitForSeconds(timeToNextShot / 4);
+            if(telegraphShot)
+                ObjectPooler.Instance
+                    .SpawnFromPool(PooledObject.EnemyTelegraph, transform.position, transform.rotation);
+            yield return new WaitForSeconds((timeToNextShot / 4) * 3);
         }
     }
 

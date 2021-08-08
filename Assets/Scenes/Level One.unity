@@ -870,22 +870,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: 0
+  - name: Enemy Bullet
+    tag: 0
     prefab: {fileID: 8612078428502151096, guid: d2d2d54eebc1c03449f884d4384d38ec,
       type: 3}
     size: 250
-  - tag: 1
+  - name: Bullet Explosion
+    tag: 1
     prefab: {fileID: 4273821731572744069, guid: 13820ebb413e0fb47b9bb1476fb57fb4,
       type: 3}
     size: 100
-  - tag: 2
+  - name: Enemy Death Explosion
+    tag: 2
     prefab: {fileID: 4273821731572744069, guid: c4f05a3f0fa9a89419bb5c2ba108529f,
       type: 3}
     size: 5
-  - tag: 3
+  - name: Player Bullet
+    tag: 3
     prefab: {fileID: 8612078428502151096, guid: c3e6c24475be6a647837f8c21ca0f26a,
       type: 3}
     size: 50
+  - name: Enemy Telegraph
+    tag: 4
+    prefab: {fileID: 735584107386223487, guid: 635287e4819ec9641adddd39fb86f087, type: 3}
+    size: 5
 --- !u!4 &304358344
 Transform:
   m_ObjectHideFlags: 0
@@ -5599,6 +5607,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 416277163, guid: dbff8490033aa5f448ea82a95014dccf, type: 3}
+      propertyPath: damage
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3119967518723326976, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: multiplyerDecay
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3119967518723326976, guid: dbff8490033aa5f448ea82a95014dccf,
+        type: 3}
+      propertyPath: multiplyerDecayTime
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 5233595213772108366, guid: dbff8490033aa5f448ea82a95014dccf,
         type: 3}
       propertyPath: m_Camera

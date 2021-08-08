@@ -29,8 +29,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private AudioClip explosionClip;
     [SerializeField] private AudioClip hitClip;
 
-    [SerializeField] private int multiplyerDecayTime = 1;
-    [SerializeField] private float multiplyerDecay = 0.5f;
+    [SerializeField] private float multiplyerDecayTime;
+    [SerializeField] private float multiplyerDecay;
 
     private CircleCollider2D hitbox;
     private AudioSource audioPlayer;
@@ -96,7 +96,7 @@ public class PlayerManager : MonoBehaviour
             Debug.LogWarning("Tried to increase multiplyer with a negative number! - " + _amount);
     }
 
-    private IEnumerator MultiplyerReduction(int _multiplyerDecayTime, float _multiplyerDecay)
+    private IEnumerator MultiplyerReduction(float _multiplyerDecayTime, float _multiplyerDecay)
     {
         while(true)
         {

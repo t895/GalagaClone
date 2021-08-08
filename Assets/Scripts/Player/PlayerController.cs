@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float startDodgeTime = 1f;
     public float nextDodgeTime = 1f;
     public GameObject dodgeEffect;
-    public ParticleSystem rechargeEffect;
     public Camera mainCamera;
     public float shakeDuration;
     public float shakeMagnitude;
@@ -80,7 +79,8 @@ public class PlayerController : MonoBehaviour
 
             if(Time.time > dodgeTime && !charged)
             {
-                rechargeEffect.Play();
+                ObjectPooler.Instance
+                    .SpawnFromPool(PooledObject.EnemyTelegraph, transform.position, transform.rotation);
                 charged = true;
             }
 

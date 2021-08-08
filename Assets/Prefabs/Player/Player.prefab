@@ -5248,7 +5248,6 @@ Transform:
   - {fileID: 5233595213748649612}
   - {fileID: 8004577900361831217}
   - {fileID: 416277159}
-  - {fileID: 4797502141290121384}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -5298,7 +5297,6 @@ MonoBehaviour:
   nextDodgeTime: 0.3
   dodgeEffect: {fileID: 2154143134636568415, guid: 60deafddd3ff95d468a7a11f2b7b1866,
     type: 3}
-  rechargeEffect: {fileID: 4797502141290121387}
   mainCamera: {fileID: 0}
   shakeDuration: 0.1
   shakeMagnitude: 0.2
@@ -5318,15 +5316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f982f0b43af5546ad5c703ea05172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultBullet: {fileID: 8612078428502151096, guid: c3e6c24475be6a647837f8c21ca0f26a,
-    type: 3}
-  fireRate: 0.1
-  powerupType: 0
-  defaultShotSound: {fileID: 8300000, guid: 637d1721c1560424396bbe337cb1090b, type: 3}
-  disablePowerupSound: {fileID: 8300000, guid: 984ea7f7fa1345445b34b190033a326f, type: 3}
-  powerupAudio:
-  - powerup: 1
-    audio: {fileID: 8300000, guid: 8675d035d1dd7b741bca01a47b85e473, type: 3}
   baseShotOrigins:
   - {fileID: 5233595212918394661}
   - {fileID: 7064835894728283785}
@@ -5340,6 +5329,9 @@ MonoBehaviour:
   - {fileID: 8282635969364124101}
   - {fileID: 8976129304693447673}
   - {fileID: 4327164477200293064}
+  defaultBullet: {fileID: 0}
+  currentBullet: {fileID: 0}
+  disablePowerupSound: {fileID: 8300000, guid: 984ea7f7fa1345445b34b190033a326f, type: 3}
 --- !u!50 &5233595214263946709
 Rigidbody2D:
   serializedVersion: 4
@@ -5810,84 +5802,3 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1001 &5233595214121907146
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 5233595214263946708}
-    m_Modifications:
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 735584107386223487, guid: 635287e4819ec9641adddd39fb86f087,
-        type: 3}
-      propertyPath: m_Name
-      value: RechargeEffect
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 635287e4819ec9641adddd39fb86f087, type: 3}
---- !u!4 &4797502141290121384 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 735584107386223458, guid: 635287e4819ec9641adddd39fb86f087,
-    type: 3}
-  m_PrefabInstance: {fileID: 5233595214121907146}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &4797502141290121387 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 735584107386223457, guid: 635287e4819ec9641adddd39fb86f087,
-    type: 3}
-  m_PrefabInstance: {fileID: 5233595214121907146}
-  m_PrefabAsset: {fileID: 0}

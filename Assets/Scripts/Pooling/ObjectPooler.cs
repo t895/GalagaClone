@@ -16,7 +16,8 @@ public enum PooledObject
     EnemyBullet, 
     BulletExplosion, 
     EnemyDeathExplosion,
-    PlayerBullet
+    PlayerBullet,
+    EnemyTelegraph
 }
 
 public class ObjectPooler : MonoBehaviour
@@ -24,6 +25,7 @@ public class ObjectPooler : MonoBehaviour
     [System.Serializable]
     public class Pool
     {
+        public string name;
         public PooledObject tag;
         public GameObject prefab;
         public int size;
