@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 2fe7d5330eb65f14185b38c44762c68f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,10 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904840dc5be16c8419a9ef635c8b465a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupType: 1
-  powerupDuration: 15
   customBullet: {fileID: 11400000, guid: 40db38299cde25140a0940ffb1f3ffea, type: 2}
-  customRate: 0.6
   timeToDespawn: 10
   pickupClip: {fileID: 8300000, guid: 77d54ca3610b37b4e9483a1ff4b61cd9, type: 3}
   despawnClip: {fileID: 8300000, guid: 902e0b0796524bd45b7586b45eb3e774, type: 3}

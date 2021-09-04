@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FPSDebug : MonoBehaviour
 {
-    public int fpsTarget = 144;
-    private float deltaTime = 0.0f;
+    //public int fpsTarget = 144;
+    //private float deltaTime = 0.0f;
  
 	void Start()
 	{
@@ -14,8 +14,8 @@ public class FPSDebug : MonoBehaviour
 
 	void Update()
 	{
-		deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
-        Application.targetFrameRate = fpsTarget;
+		//deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        //Application.targetFrameRate = fpsTarget;
 
         /*if(Input.GetKey(KeyCode.KeypadPlus))
             fpsTarget++;
@@ -23,7 +23,7 @@ public class FPSDebug : MonoBehaviour
             fpsTarget--;*/
 	}
  
-	void OnGUI()
+	/*void OnGUI()
 	{
 		int w = Screen.width, h = Screen.height;
  
@@ -38,6 +38,6 @@ public class FPSDebug : MonoBehaviour
 		string text = string.Format("{0:0.0} ms ({1:0.} fps)" + $" {fpsTarget} Target" 
 		+ " Press '+' and '-' on the numpad to control FPS Target", msec, fps);
 		GUI.Label(rect, text, style);
-	}
+	}*/
 
 }

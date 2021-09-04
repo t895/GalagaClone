@@ -10,18 +10,12 @@ public class EnemyMovement : MonoBehaviour
 {
     public float speed;
     public float lookSpeed;
-    public float turnSpeed;
+    public float spinSpeed;
     public movementType movement;
     public turnType turn;
     [SerializeField] private List<Transform> targets;
-    private GameObject player;
     [SerializeField] private int currentTarget = 0;
     private bool isReady = false;
-
-    void Start()
-    {
-        player = GameObject.FindWithTag("Player");
-    }
 
     void Update()
     {
@@ -51,12 +45,12 @@ public class EnemyMovement : MonoBehaviour
 
     void Look()
     {
-        transform.up = Vector2.Lerp(transform.up, (player.transform.position - transform.position), lookSpeed * Time.deltaTime);
+        transform.up = Vector2.Lerp(transform.up, (PlayerVariables.playerManager.gameObject.transform.position - transform.position), lookSpeed * Time.deltaTime);
     }
 
     void Spin()
     {
-        transform.Rotate(Vector3.forward * turnSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.forward * spinSpeed * Time.deltaTime);
     }
 
     void SingleTarget()
@@ -86,8 +80,8 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector2 followForce = Vector2.zero;
 
-        Vector2 direction = (transform.position - player.transform.position).normalized;
-        float distance = Vector2.Distance(transform.position, player.transform.position);
+        Vector2 direction = (transform.position - PlayerVariables.playerManager.gameObject.transform.position).normalized;
+        float distance = Vector2.Distance(transform.position, PlayerVariables.playerManager.gameObject.transform.position);
         
         float targetDistance = 1f;
         float springStrength = (distance - targetDistance);
@@ -106,6 +100,6 @@ public class EnemyMovement : MonoBehaviour
         }
 
         if(followForce.magnitude > 0.5f)
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, followForce.magnitude * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, PlayerVariables.playerManager.gameObject.transform.position, followForce.magnitude * Time.deltaTime);
     }
 }

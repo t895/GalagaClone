@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  lookSpeed: 3
-  turnSpeed: 1
+  lookSpeed: 4
+  spinSpeed: 1
   movement: 3
   turn: 0
   targets: []

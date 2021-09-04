@@ -216,7 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   lookSpeed: 1
-  turnSpeed: 50
+  spinSpeed: 30
   movement: 2
   turn: 1
   targets:
@@ -239,6 +239,7 @@ MonoBehaviour:
   damage: 10
   speed: 5
   shotSound: {fileID: 8300000, guid: acfe19050e591024d82996886c7ed00e, type: 3}
+  telegraphShot: 0
   bulletTypes:
   - {fileID: 11400000, guid: 07a0257085d1c1c49849b2a53c0a0e37, type: 2}
   - {fileID: 11400000, guid: 8c0722c7dde77124aa0f7664c72b0214, type: 2}

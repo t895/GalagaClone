@@ -20,7 +20,7 @@ public class InGameUI : MonoBehaviour
 
     private void Start()
     {
-        PlayerVariables.playerControls.InGame.Pause.performed += cxt => ChangePauseState();
+        PlayerVariables.playerControls.InGame.Pause.performed += cxt => TogglePauseState();
     }
 
     private void Update()
@@ -32,7 +32,7 @@ public class InGameUI : MonoBehaviour
             Victory();
     }
 
-    private void ChangePauseState()
+    private void TogglePauseState()
     {
         if(GameState.currentState == GameState.LevelStatus.levelInProgress)
         {
@@ -43,47 +43,36 @@ public class InGameUI : MonoBehaviour
         }
     }
 
-    private string StateName(GameState.LevelStatus _state)
-    {
-        if(_state == GameState.LevelStatus.levelInProgress)
-            return "Level in Progress";
-        else if (_state == GameState.LevelStatus.levelComplete)
-            return "Level Complete";
-        else
-            return "Level Failed";
-    }
-
     public void Pause()
     {
         enableOne(pauseUI);
-        GameState.paused = true;
         Time.timeScale = 0f;
+        GameState.paused = true;
     }
 
     public void UnPause()
     {
         enableOne(gameUI);
-        GameState.paused = false;
         Time.timeScale = 1f;
+        GameState.paused = false;
     }
 
     private void Victory()
     {
         enableOne(victoryUI);
         GameState.paused = true;
-        Time.timeScale = 0f;
     }
 
     private void GameOver()
     {
         enableOne(gameOverUI);
-        Time.timeScale = 0f;
+        GameState.paused = true;
     }
 
     public void QuitToMainMenu()
     {
-        Time.timeScale = 1f;
         GameState.paused = false;
+        Time.timeScale = 1f;
         GameState.currentState = GameState.LevelStatus.levelInProgress;
         SceneManager.LoadScene("Main Menu");
     }

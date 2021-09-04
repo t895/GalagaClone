@@ -19,7 +19,7 @@
                     "id": "7364bac3-795b-4aeb-a84d-17e12e0c1e3c",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Shoot",
@@ -43,7 +43,7 @@
                     "id": "08e3e6ee-b22c-4f8d-ae66-a75b77daf1ac",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "ClearPowerup",
@@ -51,7 +51,7 @@
                     "id": "6c933932-b45c-441a-9111-7cb8d357b436",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Pause",
@@ -76,61 +76,6 @@
                 },
                 {
                     "name": "Keyboard",
-                    "id": "1846a942-9b4a-40bf-8bd6-f6337ab78be7",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "3536ebb6-34b6-426f-9052-eed76ed12128",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "5996df10-3f0d-4a57-8747-caadf2835402",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "9721b244-411b-42e2-b4e3-ba92cfbf03c6",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "db4d4cf7-44b9-46e8-8e6b-1dcc2831e8bd",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Keyboard",
                     "id": "64c5ccd1-e1cc-4231-8150-e4a63983b6a0",
                     "path": "2DVector",
                     "interactions": "",
@@ -146,7 +91,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mouse+Keyboard",
+                    "groups": "Mouse+Keyboard;Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -157,7 +102,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mouse+Keyboard",
+                    "groups": "Mouse+Keyboard;Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -168,7 +113,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mouse+Keyboard",
+                    "groups": "Mouse+Keyboard;Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -179,7 +124,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mouse+Keyboard",
+                    "groups": "Mouse+Keyboard;Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -208,17 +153,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1f4f8328-5002-4009-9df6-900c996a4e74",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+Keyboard",
-                    "action": "Dodge",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "484f1086-1857-4e54-b926-66e21e634f3e",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -235,17 +169,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c6663472-2d83-4f7d-9bcf-051ecc579218",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+Keyboard",
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -274,17 +197,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e0fb2f8d-1c9f-4549-afe8-7ac7426ce5fa",
-                    "path": "<VirtualMouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+Keyboard",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5c62cf9b-e148-4bbc-8855-f3cb67ef356e",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -301,17 +213,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Melee",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "12324866-8b12-41f7-8f40-afee367f687a",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+Keyboard",
                     "action": "Melee",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -340,17 +241,6 @@
                 },
                 {
                     "name": "",
-                    "id": "cabbe9d4-c05e-43b2-bfb2-cde3d08a32f2",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+Keyboard",
-                    "action": "ClearPowerup",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0cfccd07-ca10-4e54-b1e8-d01d6f9d24bc",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -367,17 +257,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "882395f3-1096-477b-a6a7-1c4049afd231",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse+Keyboard",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false

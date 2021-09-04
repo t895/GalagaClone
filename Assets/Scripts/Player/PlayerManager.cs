@@ -46,11 +46,11 @@ public class PlayerManager : MonoBehaviour
         meleePower = maxMeleePower;
         hitbox = GetComponent<CircleCollider2D>();
         audioPlayer = GetComponent<AudioSource>();
-        meleeRechargeRate *= Time.deltaTime;
         PlayerVariables.playerMultiplyer = 0f;
 
         StartCoroutine(MultiplyerReduction(multiplyerDecayTime, multiplyerDecay));
     }
+
     private void Update()
     {
         if(!GameState.paused)
@@ -61,6 +61,9 @@ public class PlayerManager : MonoBehaviour
             if(meleePower > 100f)
                 meleePower = 100f;
         }
+
+        if(GameState.currentState == GameState.LevelStatus.levelComplete)
+            canTakeDamage = false;
     }
 
     public void TakeDamage(float _damage)

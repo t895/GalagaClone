@@ -24,14 +24,12 @@ public class PlayerController : MonoBehaviour
 
     private PlayerControls playerControls;
     public Vector2 movementInput, lookInput;
-    public float dodgeInput;
 
     #region InitializeControls
     private void Awake()
     {
         playerControls = new PlayerControls();
         PlayerVariables.playerControls = playerControls;
-
         PlayerVariables.playerController = this; 
     }
 
@@ -48,11 +46,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        playerControls.InGame.Dodge.performed += cxt => AttemptDodge();
         playerControls.InGame.Melee.performed += cxt => AttemptMelee();
         playerControls.InGame.Move.performed += cxt => movementInput = cxt.ReadValue<Vector2>();
         playerControls.InGame.Look.performed += cxt => lookInput = cxt.ReadValue<Vector2>();
-        playerControls.InGame.Dodge.performed += cxt => dodgeInput = cxt.ReadValue<float>();
-
         rb = GetComponent<Rigidbody2D>();
         audioPlayer = GetComponent<AudioSource>();
     }
@@ -61,29 +58,18 @@ public class PlayerController : MonoBehaviour
     {
         if(PlayerVariables.playerManager.isAlive && !GameState.paused) 
         {
-            if((movementInput.magnitude > 0 && dodgeInput == 1) || Time.time < dodgeTime) 
-            {
-                if(!(Time.time > dodgeTime && Time.time < nextDodgeTime))
-                {
-                    Dodge(movementInput);
-                    PlayerVariables.playerManager.canTakeDamage = false;
-                }
-            }
-            else
-            {
-                PlayerVariables.playerManager.canTakeDamage = true;
-            }
-            
+            //Movement
             if(Time.time > dodgeTime)
                 Move(movementInput);
 
+            //Dodge FX and mechanics
             if(Time.time > dodgeTime && !charged)
             {
+                PlayerVariables.playerManager.canTakeDamage = true;
                 ObjectPooler.Instance
                     .SpawnFromPool(PooledObject.EnemyTelegraph, transform.position, transform.rotation);
                 charged = true;
             }
-
         }
         else
         {
@@ -106,23 +92,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Dodge(Vector2 _moveInput)
+    private void AttemptDodge()
     {
-        if(Time.time > dodgeWaitTime) 
+        if(PlayerVariables.playerManager.isAlive && !GameState.paused)
         {
-            //Time increment/movement tracking
-            dodgeTime = Time.time + startDodgeTime;
-            dodgeWaitTime = dodgeTime + nextDodgeTime;
-            lastMove = _moveInput;
-            charged = false;
+            if(movementInput.magnitude > 0 && Time.time > dodgeWaitTime)
+            {
+                //Time increment/movement tracking
+                dodgeTime = Time.time + startDodgeTime;
+                dodgeWaitTime = dodgeTime + nextDodgeTime;
+                lastMove = movementInput;
+                charged = false;
 
-            //FX
-            audioPlayer.PlayOneShot(dodgeClip);
-            GameObject effect = Instantiate(dodgeEffect, transform.position, transform.rotation);
-            StartCoroutine(PlayerVariables.cameraShake.Shake(shakeDuration, shakeMagnitude));
+                //FX
+                audioPlayer.PlayOneShot(dodgeClip);
+                GameObject effect = Instantiate(dodgeEffect, transform.position, transform.rotation);
+                StartCoroutine(PlayerVariables.cameraShake.Shake(shakeDuration, shakeMagnitude));
+
+                PlayerVariables.playerManager.canTakeDamage = false;
+                rb.velocity = SpeedRelativeToCamera(lastMove * dodgeSpeed);
+            }
         }
-
-        rb.velocity = SpeedRelativeToCamera(lastMove * dodgeSpeed);
     }
 
     private Vector2 SpeedRelativeToCamera(Vector2 _speed)

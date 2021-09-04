@@ -32,9 +32,6 @@ public class WaveManager : MonoBehaviour
         if(waveArray.Length <= currentWave && GameState.currentState == GameState.LevelStatus.levelInProgress)
         {
             GameState.currentState = GameState.LevelStatus.levelComplete;
-
-            
-
             Debug.Log("Level is complete");
         }
     }

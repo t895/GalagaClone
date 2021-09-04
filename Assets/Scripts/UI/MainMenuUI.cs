@@ -7,7 +7,6 @@ public class MainMenuUI : MonoBehaviour
 {
     public GameObject mainMenuUI;
     public GameObject controlsUI;
-
     public GameObject settingsUI;
 
     public void OpenControlsUI()
